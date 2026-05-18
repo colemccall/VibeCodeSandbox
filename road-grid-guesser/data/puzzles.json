@@ -1,0 +1,87 @@
+[
+  {
+    "id": 1,
+    "date": "2026-05-14",
+    "city": "Phoenix",
+    "state": "AZ",
+    "svg_file": "puzzles/phoenix.svg",
+    "difficulty": "easy",
+    "options": ["Phoenix, AZ", "Tucson, AZ", "Scottsdale, AZ", "Mesa, AZ"],
+    "correct_index": 0,
+    "lat": 33.4484,
+    "lng": -112.0740,
+    "fun_facts": [
+      "Phoenix's street grid was originally laid out in 1870 on a perfect north-south axis, making it one of the most regular grids in the US.",
+      "The Valley of the Sun's grid system covers over 500 square miles, making it one of the largest in the world by area.",
+      "Many of Phoenix's major roads are exactly one mile apart — a legacy of the federal land survey system used to settle the West."
+    ]
+  },
+  {
+    "id": 2,
+    "date": "2026-05-15",
+    "city": "Chicago",
+    "state": "IL",
+    "svg_file": "puzzles/chicago.svg",
+    "difficulty": "medium",
+    "options": ["Chicago, IL", "Milwaukee, WI", "Detroit, MI", "Indianapolis, IN"],
+    "correct_index": 0,
+    "lat": 41.8781,
+    "lng": -87.6298,
+    "fun_facts": [
+      "Chicago's famous grid system is anchored at State & Madison Streets — the zero point from which all addresses in the city are measured.",
+      "The Chicago River was reversed in 1900 to flow away from Lake Michigan, and the lakefront roadway (Lake Shore Drive) curves along the shore in a way that breaks the city's otherwise rigid grid.",
+      "The diagonal streets cutting through Chicago — like Milwaukee Ave and Clark St — follow old Native American trading trails that predate the city's formal grid."
+    ]
+  },
+  {
+    "id": 3,
+    "date": "2026-05-16",
+    "city": "Boston",
+    "state": "MA",
+    "svg_file": "puzzles/boston.svg",
+    "difficulty": "hard",
+    "options": ["Boston, MA", "Providence, RI", "Hartford, CT", "Worcester, MA"],
+    "correct_index": 0,
+    "lat": 42.3601,
+    "lng": -71.0589,
+    "fun_facts": [
+      "Boston's famously winding streets are often said to follow old cow paths, though historians note the real cause is centuries of organic urban growth from the 1630s onward.",
+      "The Big Dig, completed in 2007, buried the I-93 highway underground through the heart of the city — dramatically changing Boston's surface street layout.",
+      "Boston's street network is so complex that GPS systems regularly fail in the older neighborhoods; locals navigate largely by landmark."
+    ]
+  },
+  {
+    "id": 4,
+    "date": "2026-05-17",
+    "city": "Denver",
+    "state": "CO",
+    "svg_file": "puzzles/denver.svg",
+    "difficulty": "medium",
+    "options": ["Denver, CO", "Salt Lake City, UT", "Albuquerque, NM", "Colorado Springs, CO"],
+    "correct_index": 0,
+    "lat": 39.7392,
+    "lng": -104.9903,
+    "fun_facts": [
+      "Denver's downtown grid is rotated 45 degrees from the cardinal directions, aligned with the South Platte River rather than true north-south.",
+      "Colfax Avenue, running diagonally through Denver, is one of the longest commercial streets in the US at over 26 miles.",
+      "Denver's street naming follows a unique system: streets east of Broadway are numbered, while streets west use names — a relic of two separately platted 19th-century towns that merged."
+    ]
+  },
+  {
+    "id": 5,
+    "date": "2026-05-18",
+    "city": "Portland",
+    "state": "OR",
+    "svg_file": "puzzles/portland.svg",
+    "difficulty": "easy",
+    "options": ["Portland, OR", "Seattle, WA", "Eugene, OR", "Tacoma, WA"],
+    "correct_index": 0,
+    "lat": 45.5051,
+    "lng": -122.6750,
+    "fun_facts": [
+      "Portland's blocks are famously tiny — just 200 feet square, about one-quarter the size of a typical American city block — making it one of the most walkable grids in the country.",
+      "The Willamette River divides Portland into east and west halves, each with its own grid system that doesn't quite line up at the bridges.",
+      "Portland has more bridges per capita than any other US city, with 12 bridges crossing the Willamette within the city limits."
+    ]
+  }
+]

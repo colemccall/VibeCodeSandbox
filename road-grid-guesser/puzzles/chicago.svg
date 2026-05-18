@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Chicago: Dense orthogonal grid (west 3/4) + diagonal streets + curved lakefront (east edge) -->
+  <rect width="800" height="800" fill="#111"/>
+
+  <!-- Lake Michigan — prominent blue on the right ~25% of the canvas -->
+  <rect x="580" y="0" width="220" height="800" fill="#0d1f3c"/>
+
+  <!-- Horizontal roads stopping at lakefront (~x=580) -->
+  <line x1="0" y1="70"  x2="580" y2="70"  stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="140" x2="580" y2="140" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="210" x2="580" y2="210" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="280" x2="580" y2="280" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="350" x2="580" y2="350" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="420" x2="580" y2="420" stroke="#fff" stroke-width="5"/>
+  <line x1="0" y1="490" x2="580" y2="490" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="560" x2="580" y2="560" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="630" x2="580" y2="630" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="700" x2="580" y2="700" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="770" x2="580" y2="770" stroke="#fff" stroke-width="2"/>
+
+  <!-- Vertical roads -->
+  <line x1="70"  y1="0" x2="70"  y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="140" y1="0" x2="140" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="210" y1="0" x2="210" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="280" y1="0" x2="280" y2="800" stroke="#fff" stroke-width="5"/>
+  <line x1="350" y1="0" x2="350" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="420" y1="0" x2="420" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="490" y1="0" x2="490" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="560" y1="0" x2="560" y2="800" stroke="#fff" stroke-width="3.5"/>
+
+  <!-- Diagonal streets: NW→SE (Milwaukee Ave direction) -->
+  <line x1="0"   y1="150" x2="500" y2="800" stroke="#fff" stroke-width="4"/>
+  <line x1="80"  y1="0"   x2="680" y2="750" stroke="#fff" stroke-width="3"/>
+  <!-- Diagonal going NE→SW (Clark St direction) -->
+  <line x1="0"   y1="480" x2="350" y2="800" stroke="#fff" stroke-width="2.5"/>
+  <line x1="300" y1="0"   x2="800" y2="660" stroke="#fff" stroke-width="2.5"/>
+
+  <!-- Lake Shore Drive — curves along the lakefront -->
+  <path d="M 600 0 C 610 80, 620 160, 615 240 C 608 340, 600 440, 605 540 C 610 640, 620 720, 615 800"
+        stroke="#fff" stroke-width="4" fill="none"/>
+
+  <!-- Narrow Grant Park / parkway strip between grid and lake -->
+  <rect x="560" y="300" width="40" height="300" fill="#1a3a1a" opacity="0.5"/>
+</svg>

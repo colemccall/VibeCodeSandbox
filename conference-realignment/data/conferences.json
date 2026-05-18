@@ -1,0 +1,30 @@
+[
+  {
+    "id": "sec",
+    "name": "SEC",
+    "full_name": "Southeastern Conference",
+    "color": "#003087",
+    "tier": 1
+  },
+  {
+    "id": "big-ten",
+    "name": "Big Ten",
+    "full_name": "Big Ten Conference",
+    "color": "#0088CE",
+    "tier": 1
+  },
+  {
+    "id": "big-12",
+    "name": "Big 12",
+    "full_name": "Big 12 Conference",
+    "color": "#003087",
+    "tier": 1
+  },
+  {
+    "id": "mountain-west",
+    "name": "Mountain West",
+    "full_name": "Mountain West Conference",
+    "color": "#005EB8",
+    "tier": 2
+  }
+]

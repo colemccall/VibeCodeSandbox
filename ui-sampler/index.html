@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI/UX Sampler — 10 Themes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=Lexend:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  /* ─── RESET ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+
+  /* ─── THEME SWITCHER SHELL ─── */
+  body {
+    font-family: Inter, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  #shell {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar */
+  #sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    background: #1a1a1a;
+    border-right: 1px solid #2a2a2a;
+    padding: 20px 12px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  #sidebar h2 {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+
+  .theme-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 9px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #888;
+    font-size: 12px;
+    font-family: Inter, sans-serif;
+    line-height: 1.3;
+    transition: background 0.15s, color 0.15s;
+    margin-bottom: 2px;
+  }
+  .theme-btn:hover { background: #252525; color: #ccc; }
+  .theme-btn.active { background: #2a2a2a; color: #fff; }
+  .theme-btn .num {
+    display: inline-block;
+    width: 18px;
+    font-size: 10px;
+    color: #555;
+    font-variant-numeric: tabular-nums;
+  }
+  .theme-btn.active .num { color: #888; }
+  .theme-btn .label { font-weight: 500; }
+
+  /* Main area */
+  #main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  /* ─── APP FRAME ─── */
+  .app-frame {
+    display: none;
+    width: 100%;
+    max-width: 520px;
+  }
+  .app-frame.visible { display: block; }
+
+  /* ─────────────────────────────────────────
+     THEME 1: WORDLE MINIMAL
+     Pure Wordle DNA. Centered, white bg,
+     flip animations, restrained.
+  ───────────────────────────────────────── */
+  .t1 {
+    background: #fff;
+    border-radius: 0;
+    font-family: 'Lexend', sans-serif;
+    color: #111;
+    padding: 0;
+    box-shadow: none;
+  }
+  .t1 .app-header {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t1 .app-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+  .t1 .streak-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    background: #f0f0f0;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .t1 .puzzle-area {
+    padding: 32px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .t1 .puzzle-prompt {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  .t1 .puzzle-image {
+    width: 280px;
+    height: 200px;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .t1 .puzzle-image svg { width: 100%; height: 100%; }
+  .t1 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .t1 .opt-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: #fff;
+    border: 2px solid #d3d6da;
+    color: #111;
+    padding: 16px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-color 0.15s, background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .t1 .opt-btn:hover:not(:disabled) { border-color: #888; }
+  .t1 .opt-btn.correct { background: #6aaa64; border-color: #6aaa64; color: #fff; }
+  .t1 .opt-btn.wrong { background: #c9b458; border-color: #c9b458; color: #fff; }
+  .t1 .opt-btn.reveal { background: #6aaa64; border-color: #6aaa64; color: #fff; }
+  .t1 .opt-btn:disabled { cursor: default; }
+  .t1 .result-area {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+  }
+  .t1 .result-text {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #111;
+  }
+  .t1 .result-sub {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 18px;
+  }
+  .t1 .share-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: #6aaa64;
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-right: 8px;
+  }
+  .t1 .reset-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    background: none;
+    color: #888;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 12px;
+    display: block;
+    margin: 12px auto 0;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 2: ATHLETIC DARK
+     Barlow Condensed headlines, amber accent,
+     data-forward, dark bg, sports-editorial.
+  ───────────────────────────────────────── */
+  .t2 {
+    background: #141414;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .t2 .app-header {
+    background: #1a1a1a;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #F59E0B;
+  }
+  .t2 .app-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .t2 .streak-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #F59E0B;
+    letter-spacing: 0.02em;
+  }
+  .t2 .puzzle-area { padding: 24px 20px 20px; }
+  .t2 .puzzle-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #F59E0B;
+    margin-bottom: 12px;
+  }
+  .t2 .puzzle-image {
+    width: 100%;
+    height: 180px;
+    background: #222;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .t2 .puzzle-image svg { width: 100%; height: 100%; }
+  .t2 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .t2 .opt-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: #222;
+    border: 1px solid #333;
+    color: #ddd;
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    text-align: left;
+  }
+  .t2 .opt-btn:hover:not(:disabled) { border-color: #F59E0B; color: #F59E0B; }
+  .t2 .opt-btn.correct { background: #166534; border-color: #16a34a; color: #4ade80; }
+  .t2 .opt-btn.wrong { background: #7f1d1d; border-color: #dc2626; color: #f87171; }
+  .t2 .opt-btn.reveal { background: #166534; border-color: #16a34a; color: #4ade80; }
+  .t2 .opt-btn:disabled { cursor: default; opacity: 0.7; }
+  .t2 .result-area {
+    padding: 16px 20px;
+    background: #1a1a1a;
+    border-top: 1px solid #2a2a2a;
+  }
+  .t2 .result-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .t2 .result-sub {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 14px;
+  }
+  .t2 .share-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #F59E0B;
+    color: #111;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+  }
+  .t2 .reset-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    background: none;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    text-decoration: underline;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 3: STADIUM BOARD
+     Scoreboard energy. Oswald. Green dominant.
+     Big numbers. Feels like game-day.
+  ───────────────────────────────────────── */
+  .t3 {
+    background: #0a1f0a;
+    font-family: 'Oswald', sans-serif;
+    color: #e8f5e9;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid #1b5e20;
+  }
+  .t3 .app-header {
+    background: #1b5e20;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t3 .app-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .t3 .streak-badge {
+    font-size: 28px;
+    font-weight: 700;
+    color: #a5d6a7;
+  }
+  .t3 .puzzle-area { padding: 20px; }
+  .t3 .puzzle-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #4caf50;
+    margin-bottom: 10px;
+  }
+  .t3 .puzzle-image {
+    width: 100%;
+    height: 180px;
+    background: #0d2b0d;
+    border: 1px solid #1b5e20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .t3 .puzzle-image svg { width: 100%; height: 100%; }
+  .t3 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .t3 .opt-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: #0d2b0d;
+    border: 1px solid #1b5e20;
+    color: #a5d6a7;
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .t3 .opt-btn:hover:not(:disabled) { background: #1b5e20; color: #fff; }
+  .t3 .opt-btn.correct { background: #2e7d32; border-color: #4caf50; color: #e8f5e9; }
+  .t3 .opt-btn.wrong { background: #7f1d1d; border-color: #ef5350; color: #ffcdd2; }
+  .t3 .opt-btn.reveal { background: #2e7d32; border-color: #4caf50; color: #e8f5e9; }
+  .t3 .opt-btn:disabled { cursor: default; }
+  .t3 .result-area {
+    background: #071407;
+    border-top: 1px solid #1b5e20;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t3 .result-text { font-size: 22px; font-weight: 700; text-transform: uppercase; }
+  .t3 .result-sub { font-size: 11px; color: #4caf50; margin-top: 2px; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; }
+  .t3 .share-btn {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #2e7d32;
+    color: #fff;
+    border: 1px solid #4caf50;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .t3 .reset-btn {
+    display: block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    background: none;
+    color: #2e7d32;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: underline;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 4: EDITORIAL SERIF
+     DM Serif Display + DM Sans.
+     NYT Games energy. Calm, earned, elegant.
+  ───────────────────────────────────────── */
+  .t4 {
+    background: #faf9f6;
+    font-family: 'DM Sans', sans-serif;
+    color: #1a1a1a;
+    border: 1px solid #ddd;
+  }
+  .t4 .app-header {
+    padding: 20px 24px 16px;
+    border-bottom: 3px solid #111;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .t4 .app-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: #111;
+    line-height: 1;
+  }
+  .t4 .streak-badge {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    padding-bottom: 2px;
+  }
+  .t4 .streak-badge span { font-weight: 700; color: #111; font-size: 18px; }
+  .t4 .puzzle-area { padding: 24px; }
+  .t4 .puzzle-prompt {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  .t4 .puzzle-image {
+    width: 100%;
+    height: 190px;
+    background: #f0ede6;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .t4 .puzzle-image svg { width: 100%; height: 100%; }
+  .t4 .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .t4 .opt-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background: #fff;
+    border: 1.5px solid #ccc;
+    color: #1a1a1a;
+    padding: 14px 18px;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 2px;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .t4 .opt-btn::before {
+    content: attr(data-letter);
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .t4 .opt-btn:hover:not(:disabled) { border-color: #111; }
+  .t4 .opt-btn.correct { background: #f0fdf4; border-color: #16a34a; color: #15803d; }
+  .t4 .opt-btn.wrong { background: #fff7ed; border-color: #ea580c; color: #c2410c; }
+  .t4 .opt-btn.reveal { background: #f0fdf4; border-color: #16a34a; color: #15803d; }
+  .t4 .opt-btn:disabled { cursor: default; }
+  .t4 .result-area {
+    padding: 20px 24px;
+    border-top: 1px solid #ddd;
+  }
+  .t4 .result-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .t4 .result-sub { font-size: 13px; color: #888; margin-bottom: 18px; }
+  .t4 .share-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: #111;
+    color: #faf9f6;
+    border: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
+  .t4 .reset-btn {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    background: none;
+    color: #aaa;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 5: BRUTALIST GRID
+     No border-radius. Harsh grid lines.
+     Monospace data. No decoration.
+  ───────────────────────────────────────── */
+  .t5 {
+    background: #fff;
+    font-family: 'Space Mono', monospace;
+    color: #000;
+    border: 2px solid #000;
+  }
+  .t5 .app-header {
+    border-bottom: 2px solid #000;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+  .t5 .app-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .t5 .streak-badge {
+    font-size: 12px;
+    font-weight: 700;
+    border: 2px solid #000;
+    padding: 4px 8px;
+  }
+  .t5 .puzzle-area { padding: 0; }
+  .t5 .puzzle-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-bottom: 1px solid #000;
+    background: #f5f5f5;
+  }
+  .t5 .puzzle-image {
+    width: 100%;
+    height: 180px;
+    background: #f0f0f0;
+    border-bottom: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .t5 .puzzle-image svg { width: 100%; height: 100%; }
+  .t5 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .t5 .opt-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #fff;
+    border: none;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    color: #000;
+    padding: 16px 12px;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.1s;
+  }
+  .t5 .opt-btn:nth-child(even) { border-right: none; }
+  .t5 .opt-btn:hover:not(:disabled) { background: #f0f0f0; }
+  .t5 .opt-btn.correct { background: #000; color: #fff; }
+  .t5 .opt-btn.wrong { background: #ff0000; color: #fff; }
+  .t5 .opt-btn.reveal { background: #000; color: #fff; }
+  .t5 .opt-btn:disabled { cursor: default; }
+  .t5 .result-area {
+    border-top: 2px solid #000;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+  .t5 .result-text { font-size: 14px; font-weight: 700; text-transform: uppercase; }
+  .t5 .result-sub { font-size: 10px; color: #666; margin-top: 2px; }
+  .t5 .share-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: #000;
+    color: #fff;
+    border: 2px solid #000;
+    padding: 10px 16px;
+    cursor: pointer;
+  }
+  .t5 .reset-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    background: none;
+    color: #999;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: block;
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #eee;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 6: BOLD SPORTS
+     High contrast. Huge numbers.
+     Gradient header. ESPN-adjacent.
+  ───────────────────────────────────────── */
+  .t6 {
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    color: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  .t6 .app-header {
+    background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t6 .app-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+  .t6 .streak-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 8px;
+  }
+  .t6 .streak-badge .num { font-size: 26px; font-weight: 700; color: #fff; line-height: 1; }
+  .t6 .streak-badge .lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.7); }
+  .t6 .puzzle-area { padding: 20px 24px; }
+  .t6 .puzzle-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7C3AED;
+    margin-bottom: 12px;
+  }
+  .t6 .puzzle-image {
+    width: 100%;
+    height: 190px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .t6 .puzzle-image svg { width: 100%; height: 100%; border-radius: 8px; }
+  .t6 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .t6 .opt-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f4f4f8;
+    border: 2px solid transparent;
+    color: #1a1a2e;
+    padding: 16px 14px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .t6 .opt-btn:hover:not(:disabled) { background: #ede9fe; border-color: #7C3AED; color: #5b21b6; }
+  .t6 .opt-btn.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+  .t6 .opt-btn.wrong { background: #fee2e2; border-color: #dc2626; color: #b91c1c; }
+  .t6 .opt-btn.reveal { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+  .t6 .opt-btn:disabled { cursor: default; }
+  .t6 .result-area {
+    background: #fafafa;
+    border-top: 1px solid #eee;
+    padding: 20px 24px;
+  }
+  .t6 .result-text { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .t6 .result-sub { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .t6 .share-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #1E40AF, #7C3AED);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+  }
+  .t6 .reset-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    background: none;
+    color: #aaa;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    display: block;
+    margin-top: 10px;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 7: RETRO ROAD ATLAS
+     Cream/forest green. Vintage map.
+     High texture feeling. 1960s USGS vibes.
+  ───────────────────────────────────────── */
+  .t7 {
+    background: #f5f0e8;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #2c1810;
+    border: 2px solid #8B6914;
+  }
+  .t7 .app-header {
+    background: #2d5016;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #8B6914;
+  }
+  .t7 .app-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f5f0e8;
+  }
+  .t7 .streak-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #8B6914;
+    background: #f5f0e8;
+    padding: 4px 10px;
+    border: 1px solid #8B6914;
+    letter-spacing: 0.04em;
+  }
+  .t7 .puzzle-area { padding: 18px 20px; }
+  .t7 .puzzle-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8B6914;
+    margin-bottom: 10px;
+  }
+  .t7 .puzzle-image {
+    width: 100%;
+    height: 175px;
+    background: #ede8dc;
+    border: 2px solid #8B6914;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .t7 .puzzle-image::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed #8B6914;
+    pointer-events: none;
+  }
+  .t7 .puzzle-image svg { width: 100%; height: 100%; }
+  .t7 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .t7 .opt-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background: #ede8dc;
+    border: 1.5px solid #8B6914;
+    color: #2c1810;
+    padding: 13px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .t7 .opt-btn:hover:not(:disabled) { background: #e0d8c8; }
+  .t7 .opt-btn.correct { background: #2d5016; border-color: #2d5016; color: #f5f0e8; }
+  .t7 .opt-btn.wrong { background: #8B2500; border-color: #8B2500; color: #f5f0e8; }
+  .t7 .opt-btn.reveal { background: #2d5016; border-color: #2d5016; color: #f5f0e8; }
+  .t7 .opt-btn:disabled { cursor: default; }
+  .t7 .result-area {
+    background: #ede8dc;
+    border-top: 2px solid #8B6914;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t7 .result-text { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; }
+  .t7 .result-sub { font-size: 11px; color: #8B6914; }
+  .t7 .share-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: #2d5016;
+    color: #f5f0e8;
+    border: 1px solid #2d5016;
+    padding: 10px 18px;
+    cursor: pointer;
+  }
+  .t7 .reset-btn {
+    display: block;
+    font-size: 11px;
+    background: none;
+    color: #8B6914;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+    padding: 10px;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 8: NEON ARCADE
+     Dark. Vivid cyan/magenta neon.
+     Streak is the hero. Fast energy.
+  ───────────────────────────────────────── */
+  .t8 {
+    background: #080810;
+    font-family: 'Lexend', sans-serif;
+    color: #e0e0ff;
+    border: 1px solid #1a1a2e;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .t8 .app-header {
+    background: #0d0d1a;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #1a1a2e;
+    position: relative;
+  }
+  .t8 .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #00F5FF, #FF00FF, #00F5FF);
+  }
+  .t8 .app-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #00F5FF;
+    text-shadow: 0 0 12px rgba(0,245,255,0.5);
+  }
+  .t8 .streak-badge {
+    text-align: center;
+  }
+  .t8 .streak-badge .num {
+    font-size: 32px;
+    font-weight: 800;
+    color: #FF00FF;
+    text-shadow: 0 0 16px rgba(255,0,255,0.6);
+    line-height: 1;
+    display: block;
+  }
+  .t8 .streak-badge .lbl { font-size: 9px; letter-spacing: 0.1em; color: #555; text-transform: uppercase; }
+  .t8 .puzzle-area { padding: 20px; }
+  .t8 .puzzle-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #00F5FF;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .t8 .puzzle-image {
+    width: 100%;
+    height: 175px;
+    background: #0d0d1a;
+    border: 1px solid #1a1a3e;
+    box-shadow: inset 0 0 30px rgba(0,245,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .t8 .puzzle-image svg { width: 100%; height: 100%; }
+  .t8 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .t8 .opt-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: #0d0d1a;
+    border: 1px solid #1a1a3e;
+    color: #a0a0cc;
+    padding: 14px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .t8 .opt-btn:hover:not(:disabled) {
+    border-color: #00F5FF;
+    color: #00F5FF;
+    box-shadow: 0 0 12px rgba(0,245,255,0.2);
+  }
+  .t8 .opt-btn.correct {
+    background: #001a0d;
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 16px rgba(0,255,136,0.3);
+  }
+  .t8 .opt-btn.wrong {
+    background: #1a0000;
+    border-color: #ff3333;
+    color: #ff3333;
+    box-shadow: 0 0 16px rgba(255,51,51,0.3);
+  }
+  .t8 .opt-btn.reveal {
+    background: #001a0d;
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 16px rgba(0,255,136,0.3);
+  }
+  .t8 .opt-btn:disabled { cursor: default; }
+  .t8 .result-area {
+    padding: 16px 20px;
+    border-top: 1px solid #1a1a2e;
+    background: #0a0a15;
+  }
+  .t8 .result-text { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .t8 .result-sub { font-size: 12px; color: #555; margin-bottom: 14px; }
+  .t8 .share-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #00F5FF;
+    border: 1px solid #00F5FF;
+    padding: 11px 22px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(0,245,255,0.2);
+    transition: all 0.15s;
+  }
+  .t8 .share-btn:hover { background: rgba(0,245,255,0.1); }
+  .t8 .reset-btn {
+    font-family: 'Lexend', sans-serif;
+    font-size: 11px;
+    background: none;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    text-decoration: underline;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 9: SOFT TACTILE
+     Rounded. Pastel accents. Soft shadows.
+     Friendly and inviting.
+  ───────────────────────────────────────── */
+  .t9 {
+    background: #f8f7ff;
+    font-family: 'DM Sans', sans-serif;
+    color: #2d2b55;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(100,80,200,0.1);
+  }
+  .t9 .app-header {
+    background: #fff;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+  }
+  .t9 .app-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2d2b55;
+    letter-spacing: -0.02em;
+  }
+  .t9 .streak-badge {
+    background: linear-gradient(135deg, #e8e4ff, #fde8ff);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b21a8;
+  }
+  .t9 .puzzle-area { padding: 20px 24px; }
+  .t9 .puzzle-prompt { font-size: 14px; color: #888; margin-bottom: 12px; }
+  .t9 .puzzle-image {
+    width: 100%;
+    height: 185px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #ece8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(100,80,200,0.06);
+  }
+  .t9 .puzzle-image svg { width: 100%; height: 100%; border-radius: 16px; }
+  .t9 .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .t9 .opt-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    background: #fff;
+    border: 2px solid #ece8ff;
+    color: #2d2b55;
+    padding: 14px 18px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.2s;
+    text-align: left;
+    box-shadow: 0 1px 4px rgba(100,80,200,0.05);
+  }
+  .t9 .opt-btn:hover:not(:disabled) {
+    border-color: #a78bfa;
+    box-shadow: 0 2px 12px rgba(100,80,200,0.12);
+    transform: translateY(-1px);
+  }
+  .t9 .opt-btn.correct { background: #f0fdf4; border-color: #86efac; color: #15803d; box-shadow: 0 2px 12px rgba(22,163,74,0.1); }
+  .t9 .opt-btn.wrong { background: #fff7ed; border-color: #fdba74; color: #c2410c; }
+  .t9 .opt-btn.reveal { background: #f0fdf4; border-color: #86efac; color: #15803d; }
+  .t9 .opt-btn:disabled { cursor: default; transform: none; }
+  .t9 .result-area {
+    background: #fff;
+    border-top: 1px solid #ece8ff;
+    padding: 20px 24px;
+    border-radius: 0 0 20px 20px;
+  }
+  .t9 .result-text { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .t9 .result-sub { font-size: 13px; color: #aaa; margin-bottom: 18px; }
+  .t9 .share-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(139,92,246,0.3);
+  }
+  .t9 .reset-btn {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    background: none;
+    color: #ccc;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+
+  /* ─────────────────────────────────────────
+     THEME 10: MONOCHROME PRECISION
+     Single color. No accent. Pure hierarchy.
+     Feels like a serious data instrument.
+  ───────────────────────────────────────── */
+  .t10 {
+    background: #f2f2f2;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #111;
+    border: 1px solid #ccc;
+  }
+  .t10 .app-header {
+    background: #111;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t10 .app-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f2f2f2;
+  }
+  .t10 .streak-badge {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    letter-spacing: 0.04em;
+  }
+  .t10 .streak-badge span { color: #f2f2f2; font-size: 20px; }
+  .t10 .puzzle-area { padding: 20px; background: #fafafa; }
+  .t10 .puzzle-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 10px;
+  }
+  .t10 .puzzle-image {
+    width: 100%;
+    height: 180px;
+    background: #ececec;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .t10 .puzzle-image svg { width: 100%; height: 100%; }
+  .t10 .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .t10 .opt-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #ccc;
+    color: #111;
+    padding: 13px 12px;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+    text-align: left;
+  }
+  .t10 .opt-btn:hover:not(:disabled) { background: #ececec; border-color: #999; }
+  .t10 .opt-btn.correct { background: #111; border-color: #111; color: #f2f2f2; }
+  .t10 .opt-btn.wrong { background: #555; border-color: #555; color: #f2f2f2; }
+  .t10 .opt-btn.reveal { background: #111; border-color: #111; color: #f2f2f2; }
+  .t10 .opt-btn:disabled { cursor: default; }
+  .t10 .result-area {
+    padding: 16px 20px;
+    background: #f2f2f2;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .t10 .result-text { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  .t10 .result-sub { font-size: 11px; color: #999; margin-top: 2px; }
+  .t10 .share-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: #111;
+    color: #f2f2f2;
+    border: none;
+    padding: 11px 20px;
+    cursor: pointer;
+  }
+  .t10 .reset-btn {
+    display: block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    background: none;
+    color: #bbb;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  /* ─── SHARED HIDDEN STATE ─── */
+  .result-area { display: none; }
+  .result-area.show { display: block; }
+  .t3 .result-area, .t5 .result-area, .t7 .result-area, .t10 .result-area { display: none; }
+  .t3 .result-area.show, .t5 .result-area.show, .t7 .result-area.show, .t10 .result-area.show { display: flex; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes pop-in {
+    0% { transform: scale(0.92); opacity: 0; }
+    60% { transform: scale(1.04); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .animate-pop { animation: pop-in 0.3s ease forwards; }
+  .animate-shake { animation: shake 0.4s ease forwards; }
+
+  /* ─── COPY TOAST ─── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #111;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    pointer-events: none;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div id="shell">
+  <nav id="sidebar">
+    <h2>UI/UX Themes</h2>
+    <button class="theme-btn active" data-theme="1"><span class="num">01</span> <span class="label">Wordle Minimal</span></button>
+    <button class="theme-btn" data-theme="2"><span class="num">02</span> <span class="label">Athletic Dark</span></button>
+    <button class="theme-btn" data-theme="3"><span class="num">03</span> <span class="label">Stadium Board</span></button>
+    <button class="theme-btn" data-theme="4"><span class="num">04</span> <span class="label">Editorial Serif</span></button>
+    <button class="theme-btn" data-theme="5"><span class="num">05</span> <span class="label">Brutalist Grid</span></button>
+    <button class="theme-btn" data-theme="6"><span class="num">06</span> <span class="label">Bold Sports</span></button>
+    <button class="theme-btn" data-theme="7"><span class="num">07</span> <span class="label">Retro Road Atlas</span></button>
+    <button class="theme-btn" data-theme="8"><span class="num">08</span> <span class="label">Neon Arcade</span></button>
+    <button class="theme-btn" data-theme="9"><span class="num">09</span> <span class="label">Soft Tactile</span></button>
+    <button class="theme-btn" data-theme="10"><span class="num">10</span> <span class="label">Mono Precision</span></button>
+  </nav>
+
+  <main id="main">
+
+    <!-- THEME 1: Wordle Minimal -->
+    <div class="app-frame t1 visible" data-frame="1">
+      <div class="app-header">
+        <div class="app-title">ROAD GRID</div>
+        <div class="streak-badge" id="t1-streak">🔥 7</div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-prompt">What city has this road network?</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Simulated grid city (Phoenix-like) -->
+            <rect width="280" height="200" fill="#f0f0f0"/>
+            <!-- Grid streets -->
+            <g stroke="#bbb" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <!-- Major roads -->
+            <g stroke="#888" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <!-- Diagonal -->
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#666" stroke-width="2.5"/>
+            <!-- Highway -->
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#555" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#555" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-answer="Phoenix, AZ" data-correct="true" data-letter="A" onclick="guess(this, 1)">Phoenix, AZ</button>
+          <button class="opt-btn" data-answer="Tucson, AZ" data-letter="B" onclick="guess(this, 1)">Tucson, AZ</button>
+          <button class="opt-btn" data-answer="Las Vegas, NV" data-letter="C" onclick="guess(this, 1)">Las Vegas, NV</button>
+          <button class="opt-btn" data-answer="Albuquerque, NM" data-letter="D" onclick="guess(this, 1)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t1-result">
+        <div class="result-text" id="t1-result-text">✓ That's correct!</div>
+        <div class="result-sub" id="t1-result-sub">Phoenix's grid is one of the most perfect in the US — strict 1-mile blocks following the township survey system.</div>
+        <button class="share-btn" onclick="share(1)">Share Result</button>
+        <button class="reset-btn" onclick="resetGame(1)">Play again</button>
+      </div>
+    </div>
+
+    <!-- THEME 2: Athletic Dark -->
+    <div class="app-frame t2" data-frame="2">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge" id="t2-streak">🔥 7 STREAK</div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">— Puzzle #47 · Daily Challenge —</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#1a1a1a"/>
+            <g stroke="#444" stroke-width="0.8" opacity="0.5">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#888" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#aaa" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#ccc" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#ccc" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 2)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 2)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 2)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 2)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t2-result">
+        <div class="result-text" id="t2-result-text">CORRECT</div>
+        <div class="result-sub" id="t2-result-sub">Phoenix's perfect grid — 1-mile blocks on the township survey system.</div>
+        <button class="share-btn" onclick="share(2)">Share 🛣️</button>
+        <button class="reset-btn" onclick="resetGame(2)">reset</button>
+      </div>
+    </div>
+
+    <!-- THEME 3: Stadium Board -->
+    <div class="app-frame t3" data-frame="3">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge" id="t3-streak">7</div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">Daily · Puzzle 47</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#071407"/>
+            <g stroke="#1b5e20" stroke-width="0.8" opacity="0.6">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#2e7d32" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#4caf50" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#81c784" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#81c784" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 3)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 3)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 3)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 3)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t3-result">
+        <div>
+          <div class="result-text" id="t3-result-text">Correct!</div>
+          <div class="result-sub" id="t3-result-sub">Phoenix — the perfect American grid</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <button class="share-btn" onclick="share(3)">Share</button>
+          <button class="reset-btn" onclick="resetGame(3)">again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- THEME 4: Editorial Serif -->
+    <div class="app-frame t4" data-frame="4">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge">Streak <span id="t4-streak-num">7</span></div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-prompt">Identify the city from its road network.</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#f0ede6"/>
+            <g stroke="#c8c0b0" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#999" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#777" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#666" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#666" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" data-letter="A" onclick="guess(this, 4)">Phoenix, AZ</button>
+          <button class="opt-btn" data-letter="B" onclick="guess(this, 4)">Tucson, AZ</button>
+          <button class="opt-btn" data-letter="C" onclick="guess(this, 4)">Las Vegas, NV</button>
+          <button class="opt-btn" data-letter="D" onclick="guess(this, 4)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t4-result">
+        <div class="result-text" id="t4-result-text">Well done.</div>
+        <div class="result-sub" id="t4-result-sub">Phoenix's grid follows strict 1-mile township survey blocks — one of the most regular in the United States.</div>
+        <button class="share-btn" onclick="share(4)">Share result</button>
+        <button class="reset-btn" onclick="resetGame(4)">Play again</button>
+      </div>
+    </div>
+
+    <!-- THEME 5: Brutalist Grid -->
+    <div class="app-frame t5" data-frame="5">
+      <div class="app-header">
+        <div class="app-title">ROAD GRID #47</div>
+        <div class="streak-badge" id="t5-streak">STREAK: 7</div>
+      </div>
+      <div class="puzzle-label">DAILY PUZZLE — IDENTIFY THE CITY</div>
+      <div class="puzzle-image">
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="280" height="200" fill="#f0f0f0"/>
+          <g stroke="#ccc" stroke-width="0.8">
+            <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+            <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+            <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+            <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+            <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+          </g>
+          <g stroke="#888" stroke-width="2">
+            <line x1="0" y1="100" x2="280" y2="100"/>
+            <line x1="140" y1="0" x2="140" y2="200"/>
+          </g>
+          <line x1="0" y1="170" x2="110" y2="30" stroke="#555" stroke-width="2.5"/>
+          <line x1="0" y1="60" x2="280" y2="60" stroke="#333" stroke-width="3.5"/>
+          <line x1="60" y1="0" x2="60" y2="200" stroke="#333" stroke-width="3.5"/>
+        </svg>
+      </div>
+      <div class="options-grid">
+        <button class="opt-btn" data-correct="true" onclick="guess(this, 5)">PHOENIX, AZ</button>
+        <button class="opt-btn" onclick="guess(this, 5)">TUCSON, AZ</button>
+        <button class="opt-btn" onclick="guess(this, 5)">LAS VEGAS, NV</button>
+        <button class="opt-btn" onclick="guess(this, 5)">ALBUQUERQUE, NM</button>
+      </div>
+      <div class="result-area" id="t5-result">
+        <div>
+          <div class="result-text" id="t5-result-text">CORRECT.</div>
+          <div class="result-sub" id="t5-result-sub">Phoenix, AZ — township survey grid</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <button class="share-btn" onclick="share(5)">SHARE</button>
+        </div>
+      </div>
+      <button class="reset-btn" onclick="resetGame(5)" id="t5-reset" style="display:none">reset puzzle</button>
+    </div>
+
+    <!-- THEME 6: Bold Sports -->
+    <div class="app-frame t6" data-frame="6">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge">
+          <span class="num" id="t6-streak">7</span>
+          <span class="lbl">Streak</span>
+        </div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">Daily Challenge · #47</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#f8f8f8"/>
+            <g stroke="#ddd" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#bbb" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#999" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#7C3AED" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#1E40AF" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 6)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 6)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 6)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 6)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t6-result">
+        <div class="result-text" id="t6-result-text">That's correct! 🎉</div>
+        <div class="result-sub" id="t6-result-sub">Phoenix — perfect 1-mile township survey grid. One of the most regular in the US.</div>
+        <button class="share-btn" onclick="share(6)">Share My Result</button>
+        <button class="reset-btn" onclick="resetGame(6)">Play again</button>
+      </div>
+    </div>
+
+    <!-- THEME 7: Retro Road Atlas -->
+    <div class="app-frame t7" data-frame="7">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge" id="t7-streak">🔥 7-game streak</div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">Puzzle No. 47 — Daily Edition</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#ede8dc"/>
+            <g stroke="#c8b89a" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#8B6914" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#6b4f10" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#2d5016" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#2d5016" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 7)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 7)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 7)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 7)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t7-result">
+        <div>
+          <div class="result-text" id="t7-result-text">Correct!</div>
+          <div class="result-sub" id="t7-result-sub">Phoenix, AZ · Township survey grid</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button class="share-btn" onclick="share(7)">Share</button>
+          <button class="reset-btn" onclick="resetGame(7)" style="display:block;margin-top:0;padding:0;text-align:right;">again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- THEME 8: Neon Arcade -->
+    <div class="app-frame t8" data-frame="8">
+      <div class="app-header">
+        <div class="app-title">ROAD GRID</div>
+        <div class="streak-badge">
+          <span class="num" id="t8-streak">7</span>
+          <span class="lbl">streak</span>
+        </div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">// daily.puzzle.47</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#080810"/>
+            <g stroke="#1a1a3e" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#2a2a5e" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#00F5FF" stroke-width="2" opacity="0.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#00F5FF" stroke-width="3" opacity="0.8" filter="url(#glow)"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#FF00FF" stroke-width="3" opacity="0.8"/>
+            <defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 8)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 8)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 8)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 8)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t8-result">
+        <div class="result-text" id="t8-result-text">Correct ✓</div>
+        <div class="result-sub" id="t8-result-sub">Phoenix · 1-mile township grid · Streak continues</div>
+        <button class="share-btn" onclick="share(8)">Copy Share</button>
+        <button class="reset-btn" onclick="resetGame(8)">new game</button>
+      </div>
+    </div>
+
+    <!-- THEME 9: Soft Tactile -->
+    <div class="app-frame t9" data-frame="9">
+      <div class="app-header">
+        <div class="app-title">Road Grid 🗺️</div>
+        <div class="streak-badge" id="t9-streak">🔥 7 streak</div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-prompt">Which city has this road pattern?</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#f8f7ff"/>
+            <g stroke="#e0d8ff" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#b8a8f8" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#9b87f5" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#7c3aed" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#7c3aed" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 9)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 9)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 9)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 9)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t9-result">
+        <div class="result-text" id="t9-result-text">You got it! 🎉</div>
+        <div class="result-sub" id="t9-result-sub">Phoenix, AZ — famous for its perfectly regular 1-mile grid.</div>
+        <button class="share-btn" onclick="share(9)">Share my result</button>
+        <button class="reset-btn" onclick="resetGame(9)">Play again</button>
+      </div>
+    </div>
+
+    <!-- THEME 10: Monochrome Precision -->
+    <div class="app-frame t10" data-frame="10">
+      <div class="app-header">
+        <div class="app-title">Road Grid</div>
+        <div class="streak-badge">Streak <span id="t10-streak">7</span></div>
+      </div>
+      <div class="puzzle-area">
+        <div class="puzzle-label">Puzzle 47 · Daily · Identify the city</div>
+        <div class="puzzle-image">
+          <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="200" fill="#ececec"/>
+            <g stroke="#d0d0d0" stroke-width="0.8">
+              <line x1="0" y1="40" x2="280" y2="40"/><line x1="0" y1="80" x2="280" y2="80"/>
+              <line x1="0" y1="120" x2="280" y2="120"/><line x1="0" y1="160" x2="280" y2="160"/>
+              <line x1="40" y1="0" x2="40" y2="200"/><line x1="80" y1="0" x2="80" y2="200"/>
+              <line x1="120" y1="0" x2="120" y2="200"/><line x1="160" y1="0" x2="160" y2="200"/>
+              <line x1="200" y1="0" x2="200" y2="200"/><line x1="240" y1="0" x2="240" y2="200"/>
+            </g>
+            <g stroke="#aaa" stroke-width="2">
+              <line x1="0" y1="100" x2="280" y2="100"/>
+              <line x1="140" y1="0" x2="140" y2="200"/>
+            </g>
+            <line x1="0" y1="170" x2="110" y2="30" stroke="#888" stroke-width="2.5"/>
+            <line x1="0" y1="60" x2="280" y2="60" stroke="#444" stroke-width="3.5"/>
+            <line x1="60" y1="0" x2="60" y2="200" stroke="#444" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options-grid">
+          <button class="opt-btn" data-correct="true" onclick="guess(this, 10)">Phoenix, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 10)">Tucson, AZ</button>
+          <button class="opt-btn" onclick="guess(this, 10)">Las Vegas, NV</button>
+          <button class="opt-btn" onclick="guess(this, 10)">Albuquerque, NM</button>
+        </div>
+      </div>
+      <div class="result-area" id="t10-result">
+        <div>
+          <div class="result-text" id="t10-result-text">Correct</div>
+          <div class="result-sub" id="t10-result-sub">Phoenix, AZ · township survey grid · 1-mile blocks</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+          <button class="share-btn" onclick="share(10)">Share</button>
+          <button class="reset-btn" onclick="resetGame(10)" style="display:block;margin-top:0;padding:0;text-align:right;padding:6px 0;">reset</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast">Copied to clipboard!</div>
+
+<script>
+  // ─── THEME SWITCHER ───
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const frames = document.querySelectorAll('.app-frame');
+
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.theme;
+      themeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      frames.forEach(f => {
+        f.classList.remove('visible');
+        if (f.dataset.frame === t) f.classList.add('visible');
+      });
+    });
+  });
+
+  // ─── GAME STATE PER THEME ───
+  const streaks = {};
+  for (let i = 1; i <= 10; i++) streaks[i] = 7;
+
+  function guess(btn, theme) {
+    const frame = document.querySelector(`[data-frame="${theme}"]`);
+    const allBtns = frame.querySelectorAll('.opt-btn');
+    const isCorrect = btn.dataset.correct === 'true';
+
+    // Disable all buttons
+    allBtns.forEach(b => b.disabled = true);
+
+    // Apply styling
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    btn.classList.add(isCorrect ? 'animate-pop' : 'animate-shake');
+
+    if (!isCorrect) {
+      // Reveal correct answer
+      allBtns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('reveal'); });
+      streaks[theme] = 0;
+    } else {
+      streaks[theme]++;
+    }
+
+    // Update streak display
+    updateStreak(theme);
+
+    // Show result area after short delay
+    setTimeout(() => {
+      const result = document.getElementById(`t${theme}-result`);
+      const resultText = document.getElementById(`t${theme}-result-text`);
+      const resultSub = document.getElementById(`t${theme}-result-sub`);
+
+      if (resultText) {
+        resultText.textContent = isCorrect
+          ? getCorrectMessage(theme)
+          : getWrongMessage(theme);
+      }
+      if (resultSub && !isCorrect) {
+        resultSub.textContent = 'The answer was Phoenix, AZ — one of the most regular urban grids in the US.';
+      }
+
+      result.classList.add('show');
+
+      // Show brutalist reset separately
+      const t5reset = document.getElementById('t5-reset');
+      if (t5reset) t5reset.style.display = 'block';
+    }, 400);
+  }
+
+  function getCorrectMessage(theme) {
+    const msgs = {
+      1: '✓ That\'s correct!',
+      2: 'CORRECT',
+      3: 'Correct!',
+      4: 'Well done.',
+      5: 'CORRECT.',
+      6: 'That\'s correct! 🎉',
+      7: 'Correct!',
+      8: 'Correct ✓',
+      9: 'You got it! 🎉',
+      10: 'Correct'
+    };
+    return msgs[theme] || 'Correct!';
+  }
+
+  function getWrongMessage(theme) {
+    const msgs = {
+      1: '✗ Not quite.',
+      2: 'INCORRECT',
+      3: 'Wrong.',
+      4: 'Not this time.',
+      5: 'WRONG.',
+      6: 'Not quite. 😔',
+      7: 'Incorrect.',
+      8: 'Wrong ✗',
+      9: 'Not quite! 😅',
+      10: 'Incorrect'
+    };
+    return msgs[theme] || 'Wrong';
+  }
+
+  function updateStreak(theme) {
+    const val = streaks[theme];
+    const els = {
+      1: document.getElementById('t1-streak'),
+      2: document.getElementById('t2-streak'),
+      3: document.getElementById('t3-streak'),
+      4: document.getElementById('t4-streak-num'),
+      5: document.getElementById('t5-streak'),
+      6: document.getElementById('t6-streak'),
+      7: document.getElementById('t7-streak'),
+      8: document.getElementById('t8-streak'),
+      9: document.getElementById('t9-streak'),
+      10: document.getElementById('t10-streak'),
+    };
+    if (!els[theme]) return;
+    switch(theme) {
+      case 1: els[1].textContent = val > 0 ? `🔥 ${val}` : '—'; break;
+      case 2: els[2].textContent = val > 0 ? `🔥 ${val} STREAK` : 'STREAK RESET'; break;
+      case 3: els[3].textContent = val; break;
+      case 4: els[4].textContent = val; break;
+      case 5: els[5].textContent = `STREAK: ${val}`; break;
+      case 6: els[6].textContent = val; break;
+      case 7: els[7].textContent = val > 0 ? `🔥 ${val}-game streak` : '0 streak'; break;
+      case 8: els[8].textContent = val; break;
+      case 9: els[9].textContent = val > 0 ? `🔥 ${val} streak` : '0 streak'; break;
+      case 10: els[10].textContent = val; break;
+    }
+  }
+
+  function resetGame(theme) {
+    const frame = document.querySelector(`[data-frame="${theme}"]`);
+    const allBtns = frame.querySelectorAll('.opt-btn');
+    allBtns.forEach(b => {
+      b.disabled = false;
+      b.classList.remove('correct', 'wrong', 'reveal', 'animate-pop', 'animate-shake');
+    });
+    const result = document.getElementById(`t${theme}-result`);
+    if (result) result.classList.remove('show');
+    const t5reset = document.getElementById('t5-reset');
+    if (t5reset) t5reset.style.display = 'none';
+  }
+
+  function share(theme) {
+    const streak = streaks[theme];
+    const text = `Road Grid #47 ✅\nStreak: ${streak} 🗺️\nPlay at roadgrid.app`;
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+
+  // Keyboard shortcut: 1-9,0 to switch themes
+  document.addEventListener('keydown', e => {
+    const n = e.key === '0' ? 10 : parseInt(e.key);
+    if (n >= 1 && n <= 10) {
+      const btn = document.querySelector(`[data-theme="${n}"]`);
+      if (btn) btn.click();
+    }
+  });
+</script>
+</body>
+</html>

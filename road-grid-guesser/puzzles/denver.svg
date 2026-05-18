@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Denver: Outer N-S aligned grid + downtown rotated 45° + Colfax diagonal -->
+  <rect width="800" height="800" fill="#111"/>
+
+  <!-- Outer regular grid (suburbs — cardinal directions) -->
+  <!-- Horizontals -->
+  <line x1="0" y1="80"  x2="800" y2="80"  stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="160" x2="800" y2="160" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="640" x2="800" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="0" y1="720" x2="800" y2="720" stroke="#fff" stroke-width="2"/>
+  <!-- Verticals -->
+  <line x1="80"  y1="0" x2="80"  y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="0" x2="160" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="640" y1="0" x2="640" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="720" y1="0" x2="720" y2="800" stroke="#fff" stroke-width="2"/>
+
+  <!-- Downtown Denver rotated grid (~45° centered around 400,400) -->
+  <!-- Streets run NW→SE (parallel to one diagonal) -->
+  <line x1="160" y1="240" x2="560" y2="640" stroke="#fff" stroke-width="3"/>
+  <line x1="190" y1="210" x2="590" y2="610" stroke="#fff" stroke-width="2"/>
+  <line x1="220" y1="180" x2="620" y2="580" stroke="#fff" stroke-width="2"/>
+  <line x1="250" y1="150" x2="650" y2="550" stroke="#fff" stroke-width="2"/>
+  <line x1="280" y1="120" x2="680" y2="520" stroke="#fff" stroke-width="3"/>
+  <line x1="310" y1="120" x2="680" y2="490" stroke="#fff" stroke-width="2"/>
+  <line x1="340" y1="120" x2="680" y2="460" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="270" x2="530" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="300" x2="500" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="330" x2="470" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="360" x2="440" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="390" x2="410" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="420" x2="380" y2="640" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="450" x2="350" y2="640" stroke="#fff" stroke-width="2"/>
+
+  <!-- Streets run SW→NE (perpendicular downtown cross-streets) -->
+  <line x1="160" y1="640" x2="560" y2="240" stroke="#fff" stroke-width="3"/>
+  <line x1="190" y1="640" x2="590" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="220" y1="640" x2="620" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="250" y1="640" x2="650" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="280" y1="640" x2="680" y2="280" stroke="#fff" stroke-width="3"/>
+  <line x1="310" y1="640" x2="680" y2="310" stroke="#fff" stroke-width="2"/>
+  <line x1="340" y1="640" x2="680" y2="340" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="610" x2="530" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="580" x2="500" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="550" x2="470" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="520" x2="440" y2="240" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="490" x2="410" y2="240" stroke="#fff" stroke-width="2"/>
+
+  <!-- Colfax Avenue — long nearly-horizontal diagonal (slight slope, E-W) -->
+  <line x1="0" y1="430" x2="800" y2="370" stroke="#fff" stroke-width="5"/>
+
+  <!-- Broadway — NW of downtown, cardinal N-S but prominent -->
+  <line x1="395" y1="0" x2="370" y2="800" stroke="#fff" stroke-width="4"/>
+
+  <!-- Speer Blvd — a curved diagonal SW of downtown -->
+  <path d="M 120 800 C 200 700, 280 620, 380 560 C 430 530, 460 500, 480 460"
+        stroke="#fff" stroke-width="3.5" fill="none"/>
+</svg>

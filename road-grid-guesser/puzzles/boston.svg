@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Boston: Organic, radiating streets from multiple centers, no true grid, curves everywhere -->
+  <!-- Downtown centered ~350,430; Back Bay slight grid upper-left; Cambridge across river -->
+  <rect width="800" height="800" fill="#111"/>
+
+  <!-- Charles River — curves across upper portion -->
+  <path d="M 0 260 C 80 240, 180 270, 280 250 C 360 235, 420 220, 500 240 C 580 260, 650 280, 800 260"
+        stroke="#0d1f3c" stroke-width="28" fill="none"/>
+  <!-- River road edges -->
+  <path d="M 0 248 C 80 228, 180 258, 280 238 C 360 223, 420 208, 500 228 C 580 248, 650 268, 800 248"
+        stroke="#fff" stroke-width="2" fill="none"/>
+  <path d="M 0 272 C 80 252, 180 282, 280 262 C 360 247, 420 232, 500 252 C 580 272, 650 292, 800 272"
+        stroke="#fff" stroke-width="2" fill="none"/>
+
+  <!-- Main radiating streets from downtown Boston (~350,480) -->
+  <line x1="350" y1="480" x2="60"  y2="100" stroke="#fff" stroke-width="4"/>
+  <line x1="350" y1="480" x2="200" y2="60"  stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="370" y2="40"  stroke="#fff" stroke-width="3.5"/>
+  <line x1="350" y1="480" x2="560" y2="80"  stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="740" y2="180" stroke="#fff" stroke-width="3.5"/>
+  <line x1="350" y1="480" x2="790" y2="380" stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="770" y2="560" stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="660" y2="780" stroke="#fff" stroke-width="4"/>
+  <line x1="350" y1="480" x2="430" y2="800" stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="240" y2="790" stroke="#fff" stroke-width="3"/>
+  <line x1="350" y1="480" x2="60"  y2="700" stroke="#fff" stroke-width="3.5"/>
+  <line x1="350" y1="480" x2="10"  y2="560" stroke="#fff" stroke-width="3"/>
+
+  <!-- Secondary radials from Government Center (~300,420) -->
+  <line x1="300" y1="420" x2="100" y2="320" stroke="#fff" stroke-width="2.5"/>
+  <line x1="300" y1="420" x2="160" y2="480" stroke="#fff" stroke-width="2.5"/>
+  <line x1="300" y1="420" x2="200" y2="380" stroke="#fff" stroke-width="2"/>
+
+  <!-- Back Bay — partial grid (upper-left, south of river) -->
+  <line x1="60"  y1="290" x2="60"  y2="480" stroke="#fff" stroke-width="2"/>
+  <line x1="110" y1="285" x2="110" y2="475" stroke="#fff" stroke-width="2"/>
+  <line x1="160" y1="280" x2="160" y2="470" stroke="#fff" stroke-width="2"/>
+  <line x1="210" y1="278" x2="210" y2="465" stroke="#fff" stroke-width="2"/>
+  <line x1="40"  y1="310" x2="230" y2="310" stroke="#fff" stroke-width="2"/>
+  <line x1="40"  y1="350" x2="230" y2="350" stroke="#fff" stroke-width="2"/>
+  <line x1="40"  y1="390" x2="230" y2="390" stroke="#fff" stroke-width="2"/>
+  <line x1="40"  y1="430" x2="230" y2="430" stroke="#fff" stroke-width="2"/>
+
+  <!-- Cross-connecting irregular streets -->
+  <path d="M 80 420 Q 180 400, 280 430 Q 340 450, 360 480" stroke="#fff" stroke-width="2.5" fill="none"/>
+  <path d="M 120 560 Q 230 520, 330 540 Q 400 560, 460 530" stroke="#fff" stroke-width="2.5" fill="none"/>
+  <path d="M 400 600 Q 500 570, 580 600 Q 650 620, 700 590" stroke="#fff" stroke-width="2" fill="none"/>
+  <path d="M 500 400 Q 540 450, 520 500 Q 500 540, 540 580" stroke="#fff" stroke-width="2" fill="none"/>
+
+  <!-- Short connector stubs in the dense downtown core -->
+  <line x1="290" y1="450" x2="330" y2="440" stroke="#fff" stroke-width="1.5"/>
+  <line x1="360" y1="450" x2="400" y2="460" stroke="#fff" stroke-width="1.5"/>
+  <line x1="310" y1="500" x2="340" y2="530" stroke="#fff" stroke-width="1.5"/>
+  <line x1="380" y1="505" x2="420" y2="495" stroke="#fff" stroke-width="1.5"/>
+  <line x1="260" y1="470" x2="290" y2="490" stroke="#fff" stroke-width="1.5"/>
+</svg>

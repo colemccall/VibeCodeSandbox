@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Phoenix: Perfectly regular grid, dense parallel lines, major arterials thicker -->
+  <!-- One of the most uniform street grids in the US — roads exactly 1 mile apart -->
+  <rect width="800" height="800" fill="#111"/>
+
+  <!-- Horizontal roads — evenly spaced at ~55px, arterials every ~110px -->
+  <line x1="0" y1="55"  x2="800" y2="55"  stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="110" x2="800" y2="110" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="165" x2="800" y2="165" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="220" x2="800" y2="220" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="275" x2="800" y2="275" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="330" x2="800" y2="330" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="385" x2="800" y2="385" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="440" x2="800" y2="440" stroke="#fff" stroke-width="5.5"/>
+  <line x1="0" y1="495" x2="800" y2="495" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="550" x2="800" y2="550" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="605" x2="800" y2="605" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="660" x2="800" y2="660" stroke="#fff" stroke-width="3.5"/>
+  <line x1="0" y1="715" x2="800" y2="715" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="770" x2="800" y2="770" stroke="#fff" stroke-width="3.5"/>
+
+  <!-- Vertical roads — equally dense, arterials every ~110px -->
+  <line x1="55"  y1="0" x2="55"  y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="110" y1="0" x2="110" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="165" y1="0" x2="165" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="220" y1="0" x2="220" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="275" y1="0" x2="275" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="330" y1="0" x2="330" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="385" y1="0" x2="385" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="440" y1="0" x2="440" y2="800" stroke="#fff" stroke-width="5.5"/>
+  <line x1="495" y1="0" x2="495" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="550" y1="0" x2="550" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="605" y1="0" x2="605" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="660" y1="0" x2="660" y2="800" stroke="#fff" stroke-width="3.5"/>
+  <line x1="715" y1="0" x2="715" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="770" y1="0" x2="770" y2="800" stroke="#fff" stroke-width="3.5"/>
+</svg>
