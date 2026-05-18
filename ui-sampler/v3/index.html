@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI/UX V3 — Bold Sports System · 5 Apps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Bold Sports Base
+   Override --grad-a, --grad-b, --accent per app
+═══════════════════════════════════════════ */
+:root {
+  /* Typography */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Neutrals */
+  --bg:          #ffffff;
+  --surface:     #f7f7fb;
+  --surface-2:   #f0f0f6;
+  --border:      #e8e8f0;
+  --border-mid:  #d8d8e8;
+  --text:        #111122;
+  --text-mid:    #555566;
+  --text-muted:  #aaaabc;
+
+  /* State colors */
+  --correct:     #16a34a;
+  --correct-bg:  #f0fdf4;
+  --correct-bd:  #86efac;
+  --wrong:       #dc2626;
+  --wrong-bg:    #fef2f2;
+  --wrong-bd:    #fca5a5;
+
+  /* App accent — overridden per app */
+  --grad-a:   #1E40AF;
+  --grad-b:   #6D28D9;
+  --accent:   #4F46E5;
+  --accent-light: #ede9fe;
+}
+
+/* App color themes */
+.app-road-grid   { --grad-a:#1E40AF; --grad-b:#6D28D9; --accent:#4F46E5; --accent-light:#ede9fe; }
+.app-highway     { --grad-a:#B45309; --grad-b:#DC2626; --accent:#C2410C; --accent-light:#fff7ed; }
+.app-stadium     { --grad-a:#065F46; --grad-b:#1E40AF; --accent:#047857; --accent-light:#ecfdf5; }
+.app-realignment { --grad-a:#7C2D12; --grad-b:#92400E; --accent:#92400E; --accent-light:#fef3c7; }
+.app-fitness     { --grad-a:#DC2626; --grad-b:#EA580C; --accent:#DC2626; --accent-light:#fff1f2; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: #0e0e14;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── SHELL ── */
+#shell { display: flex; min-height: 100vh; }
+
+#sidebar {
+  width: 192px;
+  flex-shrink: 0;
+  background: #131318;
+  border-right: 1px solid #1f1f28;
+  padding: 28px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+#sidebar h2 {
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #333344;
+  margin-bottom: 6px;
+  padding-left: 4px;
+}
+#sidebar .system-label {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin-bottom: 24px;
+  padding-left: 4px;
+  line-height: 1.1;
+}
+
+.app-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background 0.15s;
+}
+.app-btn:hover { background: #1a1a24; }
+.app-btn.active { background: #1e1e2c; }
+
+.app-btn .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.app-btn .name {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #666677;
+  vertical-align: middle;
+}
+.app-btn.active .name { color: #ddddee; }
+.app-btn .sub {
+  display: block;
+  font-size: 10px;
+  color: #333344;
+  padding-left: 16px;
+  margin-top: 2px;
+  font-family: var(--font-body);
+}
+.app-btn.active .sub { color: #444455; }
+
+/* Color dots per app */
+.dot-road    { background: linear-gradient(135deg,#1E40AF,#6D28D9); }
+.dot-highway { background: linear-gradient(135deg,#B45309,#DC2626); }
+.dot-stadium { background: linear-gradient(135deg,#065F46,#1E40AF); }
+.dot-align   { background: linear-gradient(135deg,#7C2D12,#92400E); }
+.dot-fitness { background: linear-gradient(135deg,#DC2626,#EA580C); }
+
+#sidebar .divider {
+  height: 1px;
+  background: #1f1f28;
+  margin: 20px 0;
+}
+#sidebar .note {
+  font-size: 10px;
+  color: #2a2a38;
+  padding: 0 4px;
+  line-height: 1.5;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow-y: auto;
+}
+
+/* ── APP FRAME ── */
+.app-frame {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+}
+.app-frame.visible { display: block; }
+
+/* ═══════════════════════════════════════════
+   COMPONENT LIBRARY — Bold Sports System
+   All components use CSS vars; colors flow
+   from the per-app class on .app-frame
+═══════════════════════════════════════════ */
+
+/* Card shell */
+.bs-card {
+  background: var(--bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* ── HEADER ── */
+.bs-header {
+  background: linear-gradient(135deg, var(--grad-a) 0%, var(--grad-b) 100%);
+  padding: 20px 24px 0;
+}
+.bs-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.bs-logo {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.bs-puzzle-tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.bs-header-badges { display: flex; gap: 10px; }
+.bs-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 54px;
+}
+.bs-badge .n {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  display: block;
+}
+.bs-badge .l {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.45);
+  margin-top: 2px;
+}
+.bs-tabs {
+  display: flex;
+  margin-top: 4px;
+}
+.bs-tab {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.bs-tab.active { color: #fff; border-bottom-color: rgba(255,255,255,0.9); }
+.bs-tab:hover:not(.active) { color: rgba(255,255,255,0.65); }
+
+/* ── PUZZLE AREA ── */
+.bs-puzzle { padding: 20px 24px; }
+.bs-puzzle-img {
+  width: 100%;
+  height: 205px;
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.bs-puzzle-img::after {
+  content: attr(data-prompt);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.04), transparent);
+  padding: 20px 14px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── OPTIONS ── */
+.bs-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.bs-opt {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--surface);
+  border: 2px solid transparent;
+  color: var(--text);
+  padding: 15px 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+.bs-opt-inner { display: flex; align-items: center; gap: 10px; }
+.bs-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-mid);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.bs-arrow {
+  font-size: 15px;
+  color: var(--border-mid);
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.bs-opt:hover:not(:disabled) {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.bs-opt:hover:not(:disabled) .bs-dot { background: var(--accent); }
+.bs-opt:hover:not(:disabled) .bs-arrow { opacity: 1; color: var(--accent); }
+.bs-opt:active:not(:disabled) { transform: translateY(0); }
+.bs-opt.correct { background: var(--correct-bg); border-color: var(--correct-bd); color: var(--correct); }
+.bs-opt.correct .bs-dot { background: var(--correct); }
+.bs-opt.correct .bs-arrow { opacity: 1; color: var(--correct); }
+.bs-opt.wrong { background: var(--wrong-bg); border-color: var(--wrong-bd); color: var(--wrong); }
+.bs-opt.wrong .bs-dot { background: var(--wrong); }
+.bs-opt.wrong .bs-arrow { opacity: 1; color: var(--wrong); }
+.bs-opt.reveal { background: var(--correct-bg); border-color: var(--correct-bd); color: var(--correct); }
+.bs-opt.reveal .bs-dot { background: var(--correct); }
+.bs-opt.reveal .bs-arrow { opacity: 1; color: var(--correct); }
+.bs-opt:disabled { cursor: default; transform: none; }
+
+/* ── RESULT ── */
+.bs-result { display: none; }
+.bs-result.show { display: block; }
+
+.bs-result-hero {
+  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bs-verdict {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.bs-verdict-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+.bs-verdict-emoji { font-size: 34px; }
+
+.bs-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 16px 24px;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.bs-stat { text-align: center; }
+.bs-stat .n { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1; }
+.bs-stat .l { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 3px; }
+
+.bs-fact {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.bs-fact-icon {
+  width: 34px; height: 34px;
+  background: var(--accent-light);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.bs-fact-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.bs-fact-text { font-size: 13px; color: var(--text-mid); line-height: 1.55; }
+
+.bs-share-preview {
+  margin: 16px 24px 0;
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: monospace;
+  line-height: 1.6;
+}
+
+.bs-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px 22px;
+}
+.bs-btn-primary {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+  color: #fff;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 1;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.bs-btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+.bs-btn-primary:active { transform: translateY(0); }
+.bs-btn-secondary {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  color: var(--text-muted);
+  border: 2px solid var(--border);
+  padding: 14px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.bs-btn-secondary:hover { border-color: var(--border-mid); color: var(--text-mid); }
+
+/* ── ALTERNATIVE CONTENT TYPES ── */
+
+/* Stadium: grid of cards instead of option buttons */
+.bs-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 24px 20px;
+}
+.bs-stadium-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.bs-stadium-card:hover { border-color: var(--accent); background: var(--accent-light); }
+.bs-stadium-card.visited {
+  border-color: var(--correct-bd);
+  background: var(--correct-bg);
+}
+.bs-stadium-card.visited .sc-check {
+  opacity: 1;
+}
+.sc-team { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.sc-stadium { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+.sc-meta { display: flex; align-items: center; justify-content: space-between; }
+.sc-conf {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.sc-check {
+  opacity: 0;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+.bs-stadium-card.visited .sc-conf { color: var(--correct); background: var(--correct-bg); }
+
+/* Realignment: draggable team pill list */
+.bs-conf-cols {
+  padding: 0 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bs-conf-col {}
+.bs-conf-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.bs-conf-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.bs-conf-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+.bs-team-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.bs-team-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-mid);
+  cursor: grab;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  user-select: none;
+}
+.bs-team-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.bs-team-pill:active { cursor: grabbing; transform: scale(0.96); }
+
+/* Fitness: upload zones */
+.bs-upload-zones {
+  padding: 0 24px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.bs-upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 18px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.bs-upload-zone:hover { border-color: var(--accent); background: var(--accent-light); }
+.bs-upload-zone.loaded { border-style: solid; border-color: var(--correct-bd); background: var(--correct-bg); }
+.buz-icon { font-size: 22px; margin-bottom: 6px; }
+.buz-name { font-size: 11px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.buz-sub { font-size: 9px; color: var(--text-muted); }
+.bs-upload-zone.loaded .buz-sub { color: var(--correct); font-weight: 600; }
+.bs-privacy {
+  margin: 0 24px 20px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border-radius: 8px;
+  border-left: 3px solid var(--accent);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.bs-privacy strong { color: var(--text-mid); }
+
+/* Analytics row for realignment */
+.bs-analytics {
+  padding: 0 24px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.bs-analytic {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.ba-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.ba-value { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; font-family: var(--font-display); }
+.ba-delta { font-size: 11px; margin-top: 3px; }
+.ba-delta.up { color: var(--correct); }
+.ba-delta.down { color: var(--wrong); }
+.ba-sub { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+/* Animations */
+@keyframes pop { 0%{transform:scale(0.93);opacity:0} 60%{transform:scale(1.03)} 100%{transform:scale(1);opacity:1} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+@keyframes fade-up { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.anim-pop { animation: pop 0.28s ease forwards; }
+.anim-shake { animation: shake 0.36s ease forwards; }
+.anim-fade-up { animation: fade-up 0.35s ease forwards; }
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: 28px; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #111;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 10px;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  z-index: 999;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div id="shell">
+
+  <nav id="sidebar">
+    <h2>Design System</h2>
+    <div class="system-label">Bold Sports<br>V3</div>
+
+    <button class="app-btn active" data-app="road">
+      <span class="dot dot-road"></span><span class="name">Road Grid</span>
+      <span class="sub">Blue → Purple</span>
+    </button>
+    <button class="app-btn" data-app="highway">
+      <span class="dot dot-highway"></span><span class="name">Highway Trivia</span>
+      <span class="sub">Amber → Red</span>
+    </button>
+    <button class="app-btn" data-app="stadium">
+      <span class="dot dot-stadium"></span><span class="name">Stadium List</span>
+      <span class="sub">Forest → Navy</span>
+    </button>
+    <button class="app-btn" data-app="realignment">
+      <span class="dot dot-align"></span><span class="name">Realignment</span>
+      <span class="sub">Burgundy → Bronze</span>
+    </button>
+    <button class="app-btn" data-app="fitness">
+      <span class="dot dot-fitness"></span><span class="name">Fitness</span>
+      <span class="sub">Red → Orange</span>
+    </button>
+
+    <div class="divider"></div>
+    <div class="note">Same component system.<br>Only gradient + accent<br>change per app.</div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ══════════════════════════════
+         APP 1: ROAD GRID GUESSER
+    ══════════════════════════════ -->
+    <div class="app-frame visible" data-app="road">
+      <div class="bs-card app-road-grid">
+        <div class="bs-header">
+          <div class="bs-header-top">
+            <div>
+              <div class="bs-logo">Road Grid</div>
+              <div class="bs-puzzle-tag">Daily Challenge · #47 · May 18, 2026</div>
+            </div>
+            <div class="bs-header-badges">
+              <div class="bs-badge"><span class="n" id="rg-streak">7</span><span class="l">Streak</span></div>
+              <div class="bs-badge"><span class="n">14</span><span class="l">Best</span></div>
+            </div>
+          </div>
+          <div class="bs-tabs">
+            <button class="bs-tab active">Easy</button>
+            <button class="bs-tab">Medium</button>
+            <button class="bs-tab">Hard</button>
+          </div>
+        </div>
+        <div class="bs-puzzle">
+          <div class="bs-puzzle-img" data-prompt="What city is this?">
+            <svg viewBox="0 0 432 205" width="100%" height="100%">
+              <rect width="432" height="205" fill="#f7f7fb"/>
+              <g stroke="#e0ddf0" stroke-width="0.8">
+                <line x1="0" y1="41" x2="432" y2="41"/><line x1="0" y1="82" x2="432" y2="82"/>
+                <line x1="0" y1="123" x2="432" y2="123"/><line x1="0" y1="164" x2="432" y2="164"/>
+                <line x1="43" y1="0" x2="43" y2="205"/><line x1="86" y1="0" x2="86" y2="205"/>
+                <line x1="129" y1="0" x2="129" y2="205"/><line x1="172" y1="0" x2="172" y2="205"/>
+                <line x1="216" y1="0" x2="216" y2="205"/><line x1="259" y1="0" x2="259" y2="205"/>
+                <line x1="302" y1="0" x2="302" y2="205"/><line x1="345" y1="0" x2="345" y2="205"/>
+                <line x1="389" y1="0" x2="389" y2="205"/>
+              </g>
+              <g stroke="#c4b8f0" stroke-width="1.8">
+                <line x1="0" y1="102" x2="432" y2="102"/>
+                <line x1="216" y1="0" x2="216" y2="205"/>
+              </g>
+              <line x1="0" y1="174" x2="155" y2="22" stroke="#9b8dd0" stroke-width="2.5"/>
+              <line x1="0" y1="61" x2="432" y2="61" stroke="#6D28D9" stroke-width="3.5" opacity="0.7"/>
+              <line x1="86" y1="0" x2="86" y2="205" stroke="#1E40AF" stroke-width="3.5" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="bs-options">
+            <button class="bs-opt" data-correct="true" onclick="guess(this,'road')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>Phoenix, AZ</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'road')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>Tucson, AZ</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'road')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>Las Vegas, NV</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'road')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>Albuquerque, NM</span>
+              <span class="bs-arrow">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="bs-result" id="road-result">
+          <div class="bs-result-hero">
+            <div>
+              <div class="bs-verdict" id="road-verdict">Correct!</div>
+              <div class="bs-verdict-sub" id="road-sub">Phoenix, AZ — you got it.</div>
+            </div>
+            <div class="bs-verdict-emoji" id="road-emoji">✅</div>
+          </div>
+          <div class="bs-stats">
+            <div class="bs-stat"><div class="n">47</div><div class="l">Played</div></div>
+            <div class="bs-stat"><div class="n">74%</div><div class="l">Win %</div></div>
+            <div class="bs-stat"><div class="n" id="rg-streak-stat">8</div><div class="l">Streak</div></div>
+            <div class="bs-stat"><div class="n">14</div><div class="l">Best</div></div>
+          </div>
+          <div class="bs-fact">
+            <div class="bs-fact-icon">🗺️</div>
+            <div>
+              <div class="bs-fact-label">Did you know</div>
+              <div class="bs-fact-text">Phoenix's grid follows strict 1-mile township survey blocks — one of the most geometrically regular urban grids in the United States.</div>
+            </div>
+          </div>
+          <div class="bs-share-preview">Road Grid #47 ✅<br>Streak: 8 🗺️<br>roadgrid.app</div>
+          <div class="bs-actions">
+            <button class="bs-btn-primary" onclick="share('road','Road Grid #47 ✅\nStreak: 8 🗺️\nroadgrid.app')">📋 Copy &amp; Share</button>
+            <button class="bs-btn-secondary" onclick="resetGame('road')">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         APP 2: HIGHWAY TRIVIA
+    ══════════════════════════════ -->
+    <div class="app-frame" data-app="highway">
+      <div class="bs-card app-highway">
+        <div class="bs-header">
+          <div class="bs-header-top">
+            <div>
+              <div class="bs-logo">Highway Trivia</div>
+              <div class="bs-puzzle-tag">Daily Challenge · #12 · May 18, 2026</div>
+            </div>
+            <div class="bs-header-badges">
+              <div class="bs-badge"><span class="n" id="hw-streak">7</span><span class="l">Streak</span></div>
+              <div class="bs-badge"><span class="n">23</span><span class="l">Best</span></div>
+            </div>
+          </div>
+          <div class="bs-tabs">
+            <button class="bs-tab active">Interstate</button>
+            <button class="bs-tab">US Routes</button>
+            <button class="bs-tab">State</button>
+          </div>
+        </div>
+        <div class="bs-puzzle">
+          <div class="bs-puzzle-img" data-prompt="What is the missing route?">
+            <svg viewBox="0 0 432 205" width="100%" height="100%">
+              <rect width="432" height="205" fill="#fff7ed"/>
+              <!-- Highway network sketch -->
+              <g stroke="#fde8cc" stroke-width="1.2">
+                <line x1="0" y1="68" x2="432" y2="68"/>
+                <line x1="0" y1="136" x2="432" y2="136"/>
+                <line x1="108" y1="0" x2="108" y2="205"/>
+                <line x1="324" y1="0" x2="324" y2="205"/>
+              </g>
+              <!-- Main highways -->
+              <line x1="0" y1="102" x2="432" y2="102" stroke="#C2410C" stroke-width="4" opacity="0.8"/>
+              <line x1="216" y1="0" x2="216" y2="205" stroke="#B45309" stroke-width="4" opacity="0.8"/>
+              <line x1="0" y1="40" x2="432" y2="165" stroke="#C2410C" stroke-width="2.5" opacity="0.5"/>
+              <!-- Shield placeholder -->
+              <rect x="170" y="78" width="44" height="48" rx="4" fill="#F59E0B" opacity="0.9"/>
+              <text x="192" y="108" text-anchor="middle" fill="white" font-size="22" font-weight="900" font-family="Arial">?</text>
+              <!-- Other shields -->
+              <rect x="80" y="78" width="38" height="40" rx="3" fill="#C2410C" opacity="0.8"/>
+              <text x="99" y="103" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="Arial">I-25</text>
+              <rect x="310" y="78" width="38" height="40" rx="3" fill="#C2410C" opacity="0.8"/>
+              <text x="329" y="103" text-anchor="middle" fill="white" font-size="12" font-weight="700" font-family="Arial">I-76</text>
+            </svg>
+          </div>
+          <div class="bs-options">
+            <button class="bs-opt" data-correct="true" onclick="guess(this,'highway')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>I-70</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'highway')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>I-80</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'highway')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>US-6</span>
+              <span class="bs-arrow">→</span>
+            </button>
+            <button class="bs-opt" onclick="guess(this,'highway')">
+              <span class="bs-opt-inner"><span class="bs-dot"></span>I-40</span>
+              <span class="bs-arrow">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="bs-result" id="highway-result">
+          <div class="bs-result-hero">
+            <div>
+              <div class="bs-verdict" id="hw-verdict">Correct!</div>
+              <div class="bs-verdict-sub" id="hw-sub">I-70 through Denver — you got it.</div>
+            </div>
+            <div class="bs-verdict-emoji" id="hw-emoji">✅</div>
+          </div>
+          <div class="bs-stats">
+            <div class="bs-stat"><div class="n">12</div><div class="l">Played</div></div>
+            <div class="bs-stat"><div class="n">83%</div><div class="l">Win %</div></div>
+            <div class="bs-stat"><div class="n" id="hw-streak-stat">8</div><div class="l">Streak</div></div>
+            <div class="bs-stat"><div class="n">23</div><div class="l">Best</div></div>
+          </div>
+          <div class="bs-fact">
+            <div class="bs-fact-icon">🛣️</div>
+            <div>
+              <div class="bs-fact-label">Did you know</div>
+              <div class="bs-fact-text">I-70 through Denver climbs from 5,280 feet to over 11,000 feet at Eisenhower Tunnel — one of the highest points on the Interstate system.</div>
+            </div>
+          </div>
+          <div class="bs-share-preview">Highway Trivia #12 ✅<br>Streak: 8 🛣️<br>highwaytrivia.app</div>
+          <div class="bs-actions">
+            <button class="bs-btn-primary" onclick="share('highway','Highway Trivia #12 ✅\nStreak: 8 🛣️\nhighwaytrivia.app')">📋 Copy &amp; Share</button>
+            <button class="bs-btn-secondary" onclick="resetGame('highway')">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         APP 3: STADIUM BUCKET LIST
+    ══════════════════════════════ -->
+    <div class="app-frame" data-app="stadium">
+      <div class="bs-card app-stadium">
+        <div class="bs-header">
+          <div class="bs-header-top">
+            <div>
+              <div class="bs-logo">The Stadium List</div>
+              <div class="bs-puzzle-tag">23 of 133 Stadiums Visited</div>
+            </div>
+            <div class="bs-header-badges">
+              <div class="bs-badge"><span class="n">23</span><span class="l">Visited</span></div>
+              <div class="bs-badge"><span class="n">17%</span><span class="l">Done</span></div>
+            </div>
+          </div>
+          <div class="bs-tabs">
+            <button class="bs-tab active">All</button>
+            <button class="bs-tab">Visited</button>
+            <button class="bs-tab">Remaining</button>
+          </div>
+        </div>
+        <div style="padding: 16px 24px 4px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">SEC Conference</div>
+        </div>
+        <div class="bs-card-grid">
+          <div class="bs-stadium-card visited" onclick="toggleVisit(this)">
+            <div class="sc-team">Alabama</div>
+            <div class="sc-stadium">Bryant-Denny Stadium</div>
+            <div class="sc-meta">
+              <span class="sc-conf">SEC</span>
+              <span class="sc-check">✓</span>
+            </div>
+          </div>
+          <div class="bs-stadium-card" onclick="toggleVisit(this)">
+            <div class="sc-team">Georgia</div>
+            <div class="sc-stadium">Sanford Stadium</div>
+            <div class="sc-meta">
+              <span class="sc-conf">SEC</span>
+              <span class="sc-check">✓</span>
+            </div>
+          </div>
+          <div class="bs-stadium-card visited" onclick="toggleVisit(this)">
+            <div class="sc-team">Tennessee</div>
+            <div class="sc-stadium">Neyland Stadium</div>
+            <div class="sc-meta">
+              <span class="sc-conf">SEC</span>
+              <span class="sc-check">✓</span>
+            </div>
+          </div>
+          <div class="bs-stadium-card" onclick="toggleVisit(this)">
+            <div class="sc-team">LSU</div>
+            <div class="sc-stadium">Tiger Stadium</div>
+            <div class="sc-meta">
+              <span class="sc-conf">SEC</span>
+              <span class="sc-check">✓</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 24px 16px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Big Ten Conference</div>
+          <div class="bs-card-grid" style="padding:0;">
+            <div class="bs-stadium-card visited" onclick="toggleVisit(this)">
+              <div class="sc-team">Ohio State</div>
+              <div class="sc-stadium">Ohio Stadium</div>
+              <div class="sc-meta"><span class="sc-conf">Big Ten</span><span class="sc-check">✓</span></div>
+            </div>
+            <div class="bs-stadium-card" onclick="toggleVisit(this)">
+              <div class="sc-team">Michigan</div>
+              <div class="sc-stadium">The Big House</div>
+              <div class="sc-meta"><span class="sc-conf">Big Ten</span><span class="sc-check">✓</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 0 24px 20px; display:flex; gap:10px;">
+          <button class="bs-btn-primary" onclick="shareStadium()">📤 Share My Progress</button>
+          <button class="bs-btn-secondary">🗺️ Map View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         APP 4: CONFERENCE REALIGNMENT
+    ══════════════════════════════ -->
+    <div class="app-frame" data-app="realignment">
+      <div class="bs-card app-realignment">
+        <div class="bs-header">
+          <div class="bs-header-top">
+            <div>
+              <div class="bs-logo">Realignment</div>
+              <div class="bs-puzzle-tag">Conference Simulator · 2026 Baseline</div>
+            </div>
+            <div class="bs-header-badges">
+              <div class="bs-badge"><span class="n">12</span><span class="l">Confs</span></div>
+              <div class="bs-badge"><span class="n">134</span><span class="l">Teams</span></div>
+            </div>
+          </div>
+          <div class="bs-tabs">
+            <button class="bs-tab active">Conferences</button>
+            <button class="bs-tab">Map</button>
+            <button class="bs-tab">Presets</button>
+          </div>
+        </div>
+        <div style="padding: 16px 24px 12px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Drag teams between conferences</div>
+          <div class="bs-conf-cols">
+            <div class="bs-conf-col">
+              <div class="bs-conf-hdr">
+                <div class="bs-conf-name">SEC</div>
+                <div class="bs-conf-count">16 teams</div>
+              </div>
+              <div class="bs-team-pills">
+                <div class="bs-team-pill">Alabama</div>
+                <div class="bs-team-pill">Georgia</div>
+                <div class="bs-team-pill">Tennessee</div>
+                <div class="bs-team-pill">LSU</div>
+                <div class="bs-team-pill">Texas</div>
+                <div class="bs-team-pill">Oklahoma</div>
+              </div>
+            </div>
+            <div class="bs-conf-col">
+              <div class="bs-conf-hdr">
+                <div class="bs-conf-name">Big Ten</div>
+                <div class="bs-conf-count">18 teams</div>
+              </div>
+              <div class="bs-team-pills">
+                <div class="bs-team-pill">Ohio State</div>
+                <div class="bs-team-pill">Michigan</div>
+                <div class="bs-team-pill">Penn State</div>
+                <div class="bs-team-pill">Oregon</div>
+                <div class="bs-team-pill">USC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bs-analytics">
+          <div class="bs-analytic">
+            <div class="ba-label">✈ Avg Travel</div>
+            <div class="ba-value">847 mi</div>
+            <div class="ba-delta down">▼ 12% from baseline</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">🤝 Rivalries</div>
+            <div class="ba-value">51%</div>
+            <div class="ba-delta up">▲ 3 preserved</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">📺 TV Markets</div>
+            <div class="ba-value">32</div>
+            <div class="ba-sub">Top: NY, LA, CHI, DAL</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">⚖ Balance</div>
+            <div class="ba-value">11.2 avg</div>
+            <div class="ba-sub">Min: 8 · Max: 18</div>
+          </div>
+        </div>
+        <div style="padding: 0 24px 20px; display:flex; gap:10px;">
+          <button class="bs-btn-primary">📤 Export &amp; Share</button>
+          <button class="bs-btn-secondary">↩ Undo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════
+         APP 5: FITNESS VISUALIZER
+    ══════════════════════════════ -->
+    <div class="app-frame" data-app="fitness">
+      <div class="bs-card app-fitness">
+        <div class="bs-header">
+          <div class="bs-header-top">
+            <div>
+              <div class="bs-logo">Fitness</div>
+              <div class="bs-puzzle-tag">Activity Visualizer · All processing in browser</div>
+            </div>
+            <div class="bs-header-badges">
+              <div class="bs-badge"><span class="n">847</span><span class="l">Activities</span></div>
+              <div class="bs-badge"><span class="n">2.4k</span><span class="l">Miles</span></div>
+            </div>
+          </div>
+          <div class="bs-tabs">
+            <button class="bs-tab active">Upload</button>
+            <button class="bs-tab">Heatmap</button>
+            <button class="bs-tab">Charts</button>
+          </div>
+        </div>
+        <div style="padding: 20px 24px 12px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;">Upload your data</div>
+          <div class="bs-upload-zones">
+            <div class="bs-upload-zone loaded">
+              <div class="buz-icon">🟠</div>
+              <div class="buz-name">Strava</div>
+              <div class="buz-sub">847 activities</div>
+            </div>
+            <div class="bs-upload-zone" onclick="this.classList.toggle('loaded'); this.querySelector('.buz-sub').textContent = this.classList.contains('loaded') ? '312 workouts' : 'Drop ZIP'">
+              <div class="buz-icon">🍎</div>
+              <div class="buz-name">Apple</div>
+              <div class="buz-sub">Drop ZIP</div>
+            </div>
+            <div class="bs-upload-zone" onclick="this.classList.toggle('loaded'); this.querySelector('.buz-sub').textContent = this.classList.contains('loaded') ? '204 activities' : 'Drop ZIP'">
+              <div class="buz-icon">🔵</div>
+              <div class="buz-name">Garmin</div>
+              <div class="buz-sub">Drop ZIP</div>
+            </div>
+          </div>
+        </div>
+        <div class="bs-analytics" style="padding-bottom:12px;">
+          <div class="bs-analytic">
+            <div class="ba-label">🏃 Total Runs</div>
+            <div class="ba-value">412</div>
+            <div class="ba-sub">Last: 3 days ago</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">📏 Distance</div>
+            <div class="ba-value">2,418 mi</div>
+            <div class="ba-sub">3,890 km</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">❤️ Avg HR</div>
+            <div class="ba-value">148 bpm</div>
+            <div class="ba-sub">Max: 194</div>
+          </div>
+          <div class="bs-analytic">
+            <div class="ba-label">⛰ Elevation</div>
+            <div class="ba-value">142k ft</div>
+            <div class="ba-sub">43,300 m</div>
+          </div>
+        </div>
+        <div class="bs-privacy">
+          <strong>Your data never leaves your device.</strong> All processing happens in your browser — nothing is uploaded to any server.
+        </div>
+        <div style="padding: 0 24px 20px; display:flex; gap:10px;">
+          <button class="bs-btn-primary">🗺️ View Heatmap</button>
+          <button class="bs-btn-secondary">📊 Charts</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast">Copied! ✓</div>
+
+<script>
+  // App switcher
+  document.querySelectorAll('.app-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.app-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const app = btn.dataset.app;
+      document.querySelectorAll('.app-frame').forEach(f => {
+        f.classList.remove('visible');
+        if (f.dataset.app === app) f.classList.add('visible');
+      });
+    });
+  });
+
+  // Tab clicks (visual only)
+  document.querySelectorAll('.bs-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabs = tab.closest('.bs-tabs').querySelectorAll('.bs-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  const streaks = { road: 7, highway: 7 };
+
+  function guess(btn, app) {
+    const frame = document.querySelector(`[data-app="${app}"]`);
+    const allBtns = frame.querySelectorAll('.bs-opt');
+    const isCorrect = btn.dataset.correct === 'true';
+
+    allBtns.forEach(b => b.disabled = true);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    btn.classList.add(isCorrect ? 'anim-pop' : 'anim-shake');
+
+    if (isCorrect) {
+      streaks[app]++;
+    } else {
+      allBtns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('reveal'); });
+      streaks[app] = 0;
+    }
+
+    // Update streak badges
+    const sEl = document.getElementById(app === 'road' ? 'rg-streak' : 'hw-streak');
+    const sStat = document.getElementById(app === 'road' ? 'rg-streak-stat' : 'hw-streak-stat');
+    if (sEl) sEl.textContent = streaks[app];
+    if (sStat) sStat.textContent = streaks[app];
+
+    setTimeout(() => {
+      const result = document.getElementById(`${app}-result`);
+      result.classList.add('show', 'anim-fade-up');
+
+      const verdict = document.getElementById(`${app === 'road' ? 'road' : 'hw'}-verdict`);
+      const sub = document.getElementById(`${app === 'road' ? 'road' : 'hw'}-sub`);
+      const emoji = document.getElementById(`${app === 'road' ? 'road' : 'hw'}-emoji`);
+
+      if (verdict) verdict.textContent = isCorrect ? 'Correct!' : 'Incorrect';
+      if (emoji) emoji.textContent = isCorrect ? '✅' : '❌';
+      if (sub && !isCorrect) {
+        sub.textContent = app === 'road'
+          ? 'The answer was Phoenix, AZ.'
+          : 'The answer was I-70.';
+      }
+    }, 360);
+  }
+
+  function resetGame(app) {
+    const frame = document.querySelector(`[data-app="${app}"]`);
+    frame.querySelectorAll('.bs-opt').forEach(b => {
+      b.disabled = false;
+      b.className = 'bs-opt';
+    });
+    const result = document.getElementById(`${app}-result`);
+    result.classList.remove('show', 'anim-fade-up');
+    streaks[app] = 7;
+    const sEl = document.getElementById(app === 'road' ? 'rg-streak' : 'hw-streak');
+    const sStat = document.getElementById(app === 'road' ? 'rg-streak-stat' : 'hw-streak-stat');
+    if (sEl) sEl.textContent = 7;
+    if (sStat) sStat.textContent = 7;
+  }
+
+  function share(app, text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    });
+  }
+
+  function shareStadium() {
+    share('stadium', 'The Stadium List\n23 / 133 FBS Stadiums Visited (17%)\nthestadiumlist.com');
+  }
+
+  function toggleVisit(card) {
+    card.classList.toggle('visited');
+  }
+
+  // Keyboard shortcuts
+  const appKeys = ['road','highway','stadium','realignment','fitness'];
+  document.addEventListener('keydown', e => {
+    const n = parseInt(e.key);
+    if (n >= 1 && n <= 5) {
+      document.querySelectorAll('.app-btn')[n-1].click();
+    }
+  });
+</script>
+</body>
+</html>
