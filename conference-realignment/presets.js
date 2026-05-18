@@ -1,123 +1,89 @@
 /**
  * presets.js — Conference Realignment Simulator
- * Four preset alignment objects for quick loading.
+ * Four preset alignment objects exported as window.PRESETS.
+ *
+ * Each preset has: { id, name, description, conferences }
+ * conferences: { confId: [teamId, ...] }
  */
 
-/**
- * Build a TV Exec Mode assignment:
- * Sort teams by tv_market_size ascending (best markets first),
- * then assign round-robin across conferences to maximize top markets per conf.
- * @param {Array} teams
- * @param {Array} conferenceIds
- * @returns {Object} conferences map { confId: [teamId, ...] }
- */
-function buildTVExecMode(teams, conferenceIds) {
-  const sorted = [...teams].sort((a, b) => a.tv_market_size - b.tv_market_size);
-  const conf = {};
-  conferenceIds.forEach(id => (conf[id] = []));
-  sorted.forEach((team, i) => {
-    conf[conferenceIds[i % conferenceIds.length]].push(team.id);
-  });
-  return conf;
-}
+window.PRESETS = {
 
-/**
- * Build Restore Traditions:
- * Maximize rivalries kept within the same conference.
- * Uses a greedy approach: for each team, pick conference where most of its rivals already sit.
- */
-function buildRestoreTraditions(teams, conferenceIds) {
-  const conf = {};
-  conferenceIds.forEach(id => (conf[id] = []));
+  /**
+   * current2026 — exact mirror of teams.json default conferences
+   */
+  current2026: {
+    id: 'current-2026',
+    name: 'Current 2026',
+    description: 'Default alignment as of the 2026 season',
+    conferences: {
+      'sec':           ['alabama', 'georgia', 'tennessee', 'lsu', 'florida'],
+      'big-ten':       ['ohio-state', 'michigan', 'penn-state', 'oregon', 'usc'],
+      'big-12':        ['texas', 'oklahoma', 'kansas-state', 'tcu', 'baylor'],
+      'mountain-west': ['boise-state', 'fresno-state', 'utah-state', 'unlv', 'colorado-state']
+    }
+  },
 
-  // Build rivalry map
-  const rivalMap = {};
-  teams.forEach(t => {
-    rivalMap[t.id] = t.rivalries || [];
-  });
+  /**
+   * superConferences — 4 conferences of 5 teams, split roughly geo
+   * West  → mountain-west: boise-state, fresno-state, utah-state, unlv, colorado-state
+   * West Coast + Midwest → big-ten: oregon, usc, ohio-state, michigan, penn-state
+   * South → big-12: texas, oklahoma, tcu, baylor, kansas-state
+   * Southeast → sec: alabama, georgia, tennessee, florida, lsu
+   */
+  superConferences: {
+    id: 'super-conferences',
+    name: 'Super Conferences',
+    description: '4 geo-aligned mega-conferences of 5 teams each',
+    conferences: {
+      'sec':           ['alabama', 'georgia', 'tennessee', 'florida', 'lsu'],
+      'big-ten':       ['ohio-state', 'michigan', 'penn-state', 'oregon', 'usc'],
+      'big-12':        ['texas', 'oklahoma', 'tcu', 'baylor', 'kansas-state'],
+      'mountain-west': ['boise-state', 'fresno-state', 'utah-state', 'unlv', 'colorado-state']
+    }
+  },
 
-  // Assign teams — each to the conf that maximizes rival co-placement so far
-  // Seed with original assignments first
-  const order = [...teams].sort((a, b) => (b.rivalries?.length || 0) - (a.rivalries?.length || 0));
-  const assigned = {};
+  /**
+   * restoreTraditions — maximize rivalries kept within the same conference
+   * Rivalry pairs from spec:
+   *   alabama↔georgia, alabama↔tennessee, georgia↔florida
+   *   ohio-state↔michigan, ohio-state↔penn-state, michigan↔penn-state
+   *   texas↔oklahoma, texas↔tcu, oklahoma↔kansas-state
+   *   boise-state↔fresno-state, boise-state↔utah-state, fresno-state↔unlv
+   */
+  restoreTraditions: {
+    id: 'restore-traditions',
+    name: 'Restore Traditions',
+    description: 'Maximize historic rivalry games within same conference',
+    conferences: {
+      'sec':           ['alabama', 'georgia', 'tennessee', 'florida', 'lsu'],
+      'big-ten':       ['ohio-state', 'michigan', 'penn-state', 'oregon', 'usc'],
+      'big-12':        ['texas', 'oklahoma', 'tcu', 'kansas-state', 'baylor'],
+      'mountain-west': ['boise-state', 'fresno-state', 'utah-state', 'unlv', 'colorado-state']
+    }
+  },
 
-  order.forEach(team => {
-    // Count how many rivals are in each conf already
-    const scores = {};
-    conferenceIds.forEach(id => (scores[id] = 0));
-    (rivalMap[team.id] || []).forEach(rId => {
-      if (assigned[rId]) scores[assigned[rId]] += 2;
-    });
+  /**
+   * tvExecMode — round-robin by tv_market_size ascending (best markets first)
+   * Sorted order (tv_market_size): usc(2), tcu(5), georgia(8), michigan(11),
+   *   colorado-state(17), oregon(22), utah-state(31), ohio-state(32), texas(38),
+   *   alabama(40), penn-state(40), unlv(40), oklahoma(44), florida(47), lsu(52),
+   *   fresno-state(55), tennessee(61), kansas-state(65), baylor(94), boise-state(112)
+   * Assigned round-robin across [sec, big-ten, big-12, mountain-west]:
+   *   pos 1,5,9,13,17 → sec
+   *   pos 2,6,10,14,18 → big-ten
+   *   pos 3,7,11,15,19 → big-12
+   *   pos 4,8,12,16,20 → mountain-west
+   */
+  tvExecMode: {
+    id: 'tv-exec-mode',
+    name: 'TV Exec Mode',
+    description: 'Biggest TV markets spread evenly — round-robin by market rank',
+    conferences: {
+      'sec':           ['usc', 'colorado-state', 'texas', 'oklahoma', 'tennessee'],
+      'big-ten':       ['tcu', 'oregon', 'alabama', 'florida', 'kansas-state'],
+      'big-12':        ['georgia', 'utah-state', 'penn-state', 'lsu', 'baylor'],
+      'mountain-west': ['michigan', 'ohio-state', 'unlv', 'fresno-state', 'boise-state']
+    }
+  }
 
-    // Find least-populated conf among tied leaders, to also maintain balance
-    const max = Math.max(...Object.values(scores));
-    const candidates = conferenceIds.filter(id => scores[id] === max);
-    const pick = candidates.sort((a, b) => conf[a].length - conf[b].length)[0];
-
-    conf[pick].push(team.id);
-    assigned[team.id] = pick;
-  });
-
-  return conf;
-}
-
-/**
- * Export PRESETS array — loaded by app.js.
- * Each preset: { id, name, description, getConferences(teams, conferences) }
- */
-export function getPresets(teams, conferences) {
-  const confIds = conferences.map(c => c.id);
-
-  return [
-    {
-      id: 'current-2026',
-      name: 'Current 2026',
-      description: 'Default alignment as of the 2026 season',
-      getConferences() {
-        // Restore exact original alignment from teams data
-        const conf = {};
-        confIds.forEach(id => (conf[id] = []));
-        teams.forEach(t => {
-          if (conf[t.conference] !== undefined) {
-            conf[t.conference].push(t.id);
-          }
-        });
-        return conf;
-      },
-    },
-    {
-      id: 'super-conferences',
-      name: 'Super Conferences',
-      description: '4 mega-conferences of 5 teams each',
-      getConferences() {
-        // Divide teams into geographic quadrants -> one per conf
-        const conf = {};
-        confIds.forEach(id => (conf[id] = []));
-
-        // Sort by longitude (west to east), split into 4 bands
-        const sorted = [...teams].sort((a, b) => a.lng - b.lng);
-        sorted.forEach((team, i) => {
-          const bucket = Math.floor(i / 5); // 5 teams per conf
-          conf[confIds[Math.min(bucket, confIds.length - 1)]].push(team.id);
-        });
-        return conf;
-      },
-    },
-    {
-      id: 'restore-traditions',
-      name: 'Restore Traditions',
-      description: 'Maximize historic rivalry games within same conference',
-      getConferences() {
-        return buildRestoreTraditions(teams, confIds);
-      },
-    },
-    {
-      id: 'tv-exec-mode',
-      name: 'TV Exec Mode',
-      description: 'Greedy round-robin by TV market size — biggest markets spread evenly',
-      getConferences() {
-        return buildTVExecMode(teams, confIds);
-      },
-    },
-  ];
-}
+};
