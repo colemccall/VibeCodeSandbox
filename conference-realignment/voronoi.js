@@ -9,6 +9,9 @@
 
 const VORONOI_PANE_ID = 'voronoi-svg-overlay';
 
+// Module-level move handler so we can properly remove + re-add it
+let _currentMapMoveHandler = null;
+
 /**
  * renderVoronoi
  * @param {Array}  teams            — full teams array (with lat, lng, id, name, conference)
@@ -167,13 +170,14 @@ export function renderVoronoi(teams, conferenceColors, leafletMap, state) {
     dotsGroup.appendChild(label);
   });
 
-  // Re-render when map moves
-  leafletMap.off('moveend zoomend', _onMapMove);
-  leafletMap.on('moveend zoomend', _onMapMove);
-
-  function _onMapMove() {
-    renderVoronoi(teams, conferenceColors, leafletMap, state);
+  // Re-render when map pans / zooms — remove old handler first to avoid duplicates
+  if (_currentMapMoveHandler) {
+    leafletMap.off('moveend', _currentMapMoveHandler);
+    leafletMap.off('zoomend', _currentMapMoveHandler);
   }
+  _currentMapMoveHandler = () => renderVoronoi(teams, conferenceColors, leafletMap, state);
+  leafletMap.on('moveend', _currentMapMoveHandler);
+  leafletMap.on('zoomend', _currentMapMoveHandler);
 }
 
 /** Position tooltip near cursor, keeping it inside container */
