@@ -3,28 +3,28 @@
     "id": "sec",
     "name": "SEC",
     "full_name": "Southeastern Conference",
-    "color": "#002147",
+    "color": "#003087",
     "tier": 1
   },
   {
     "id": "big-ten",
     "name": "Big Ten",
     "full_name": "Big Ten Conference",
-    "color": "#0066CC",
+    "color": "#0088CE",
     "tier": 1
   },
   {
     "id": "big-12",
     "name": "Big 12",
     "full_name": "Big 12 Conference",
-    "color": "#CC0000",
+    "color": "#003087",
     "tier": 1
   },
   {
     "id": "mountain-west",
-    "name": "MWC",
+    "name": "Mountain West",
     "full_name": "Mountain West Conference",
-    "color": "#005A8E",
+    "color": "#005EB8",
     "tier": 2
   }
 ]

@@ -1,47 +1,80 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <!-- Portland: Tight regular grid, very square, small blocks (~200ft = tiny blocks) -->
+  <!-- Portland: Tight regular grid split by Willamette River into East/West halves -->
+  <!-- West side is older, slightly denser; East side is slightly offset — grids don't align -->
   <rect width="800" height="800" fill="#111"/>
 
-  <!-- Horizontal roads — tight spacing (~44px = tiny blocks) -->
-  <line x1="0" y1="44"  x2="800" y2="44"  stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="88"  x2="800" y2="88"  stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="132" x2="800" y2="132" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="176" x2="800" y2="176" stroke="#fff" stroke-width="3.5"/>
-  <line x1="0" y1="220" x2="800" y2="220" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="264" x2="800" y2="264" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="308" x2="800" y2="308" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="352" x2="800" y2="352" stroke="#fff" stroke-width="3.5"/>
-  <line x1="0" y1="396" x2="800" y2="396" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="440" x2="800" y2="440" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="484" x2="800" y2="484" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="528" x2="800" y2="528" stroke="#fff" stroke-width="3.5"/>
-  <line x1="0" y1="572" x2="800" y2="572" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="616" x2="800" y2="616" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="660" x2="800" y2="660" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="704" x2="800" y2="704" stroke="#fff" stroke-width="3.5"/>
-  <line x1="0" y1="748" x2="800" y2="748" stroke="#fff" stroke-width="2"/>
-  <line x1="0" y1="792" x2="800" y2="792" stroke="#fff" stroke-width="2"/>
+  <!-- Willamette River — runs roughly N-S, offset slightly left of center -->
+  <rect x="320" y="0" width="50" height="800" fill="#0d1f3c"/>
+  <!-- River banks as white lines -->
+  <line x1="320" y1="0" x2="320" y2="800" stroke="#fff" stroke-width="2"/>
+  <line x1="370" y1="0" x2="370" y2="800" stroke="#fff" stroke-width="2"/>
 
-  <!-- Vertical roads — equally tight spacing -->
-  <line x1="44"  y1="0" x2="44"  y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="88"  y1="0" x2="88"  y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="132" y1="0" x2="132" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="176" y1="0" x2="176" y2="800" stroke="#fff" stroke-width="3.5"/>
-  <line x1="220" y1="0" x2="220" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="264" y1="0" x2="264" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="308" y1="0" x2="308" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="352" y1="0" x2="352" y2="800" stroke="#fff" stroke-width="3.5"/>
-  <line x1="396" y1="0" x2="396" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="440" y1="0" x2="440" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="484" y1="0" x2="484" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="528" y1="0" x2="528" y2="800" stroke="#fff" stroke-width="3.5"/>
-  <line x1="572" y1="0" x2="572" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="616" y1="0" x2="616" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="660" y1="0" x2="660" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="704" y1="0" x2="704" y2="800" stroke="#fff" stroke-width="3.5"/>
-  <line x1="748" y1="0" x2="748" y2="800" stroke="#fff" stroke-width="2"/>
-  <line x1="792" y1="0" x2="792" y2="800" stroke="#fff" stroke-width="2"/>
+  <!-- WEST SIDE: very tight grid (x: 0-320) — classic Portland small blocks -->
+  <!-- Horizontal west -->
+  <line x1="0" y1="44"  x2="320" y2="44"  stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="88"  x2="320" y2="88"  stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="132" x2="320" y2="132" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="176" x2="320" y2="176" stroke="#fff" stroke-width="3"/>
+  <line x1="0" y1="220" x2="320" y2="220" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="264" x2="320" y2="264" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="308" x2="320" y2="308" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="352" x2="320" y2="352" stroke="#fff" stroke-width="3"/>
+  <line x1="0" y1="396" x2="320" y2="396" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="440" x2="320" y2="440" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="484" x2="320" y2="484" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="528" x2="320" y2="528" stroke="#fff" stroke-width="3"/>
+  <line x1="0" y1="572" x2="320" y2="572" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="616" x2="320" y2="616" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="660" x2="320" y2="660" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="704" x2="320" y2="704" stroke="#fff" stroke-width="3"/>
+  <line x1="0" y1="748" x2="320" y2="748" stroke="#fff" stroke-width="1.5"/>
+  <line x1="0" y1="792" x2="320" y2="792" stroke="#fff" stroke-width="1.5"/>
+  <!-- Vertical west -->
+  <line x1="44"  y1="0" x2="44"  y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="88"  y1="0" x2="88"  y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="132" y1="0" x2="132" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="176" y1="0" x2="176" y2="800" stroke="#fff" stroke-width="3"/>
+  <line x1="220" y1="0" x2="220" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="264" y1="0" x2="264" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="308" y1="0" x2="308" y2="800" stroke="#fff" stroke-width="1.5"/>
 
-  <!-- Willamette River break — vertical gap/river band in the middle -->
-  <rect x="370" y="0" width="30" height="800" fill="#1a2a4a" opacity="0.85"/>
+  <!-- EAST SIDE: same tight grid but offset by ~22px (grids don't align at bridges) -->
+  <!-- Horizontal east — offset by 22px vertically -->
+  <line x1="370" y1="22"  x2="800" y2="22"  stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="66"  x2="800" y2="66"  stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="110" x2="800" y2="110" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="154" x2="800" y2="154" stroke="#fff" stroke-width="3"/>
+  <line x1="370" y1="198" x2="800" y2="198" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="242" x2="800" y2="242" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="286" x2="800" y2="286" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="330" x2="800" y2="330" stroke="#fff" stroke-width="3"/>
+  <line x1="370" y1="374" x2="800" y2="374" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="418" x2="800" y2="418" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="462" x2="800" y2="462" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="506" x2="800" y2="506" stroke="#fff" stroke-width="3"/>
+  <line x1="370" y1="550" x2="800" y2="550" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="594" x2="800" y2="594" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="638" x2="800" y2="638" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="682" x2="800" y2="682" stroke="#fff" stroke-width="3"/>
+  <line x1="370" y1="726" x2="800" y2="726" stroke="#fff" stroke-width="1.5"/>
+  <line x1="370" y1="770" x2="800" y2="770" stroke="#fff" stroke-width="1.5"/>
+  <!-- Vertical east -->
+  <line x1="414" y1="0" x2="414" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="458" y1="0" x2="458" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="502" y1="0" x2="502" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="546" y1="0" x2="546" y2="800" stroke="#fff" stroke-width="3"/>
+  <line x1="590" y1="0" x2="590" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="634" y1="0" x2="634" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="678" y1="0" x2="678" y2="800" stroke="#fff" stroke-width="1.5"/>
+  <line x1="722" y1="0" x2="722" y2="800" stroke="#fff" stroke-width="3"/>
+  <line x1="766" y1="0" x2="766" y2="800" stroke="#fff" stroke-width="1.5"/>
+
+  <!-- Bridges crossing the river (short connectors, angled or straight) -->
+  <line x1="310" y1="176" x2="380" y2="154" stroke="#fff" stroke-width="3"/>
+  <line x1="310" y1="352" x2="380" y2="330" stroke="#fff" stroke-width="3"/>
+  <line x1="310" y1="528" x2="380" y2="506" stroke="#fff" stroke-width="3"/>
+  <line x1="310" y1="704" x2="380" y2="682" stroke="#fff" stroke-width="3"/>
+
+  <!-- MAX Light Rail — runs E-W across bridge at mid-level -->
+  <line x1="0" y1="396" x2="800" y2="374" stroke="#fff" stroke-width="4" stroke-dasharray="10,6"/>
 </svg>
