@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Highway Trivia</title>
+
+  <!-- Google Fonts: Barlow Condensed + Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../design-system/theme.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       Highway Trivia — App-Specific Styles
+       Extends the Bold Sports design system (theme.css).
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* ─── Root & Shell ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: linear-gradient(135deg, var(--grad-a, #B45309), var(--grad-b, #DC2626));
+      font-family: var(--font-body);
+      color: var(--text);
+    }
+
+    #app {
+      max-width: 680px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Ad Placeholders ──────────────────────────────────────── */
+    .ht-ad {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f0;
+      border: 1px dashed #ccc;
+      color: #999;
+      font-size: 11px;
+      font-family: var(--font-body);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .ht-ad-top {
+      width: 100%;
+      height: 60px;        /* responsive stand-in; 728×90 in production */
+      max-height: 90px;
+    }
+
+    .ht-ad-bottom {
+      width: 300px;
+      height: 250px;
+      margin: var(--sp-6) auto;
+    }
+
+    /* ─── Home Screen ───────────────────────────────────────────── */
+    .ht-home {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+    }
+
+    .ht-header {
+      text-align: center;
+      padding: var(--sp-8) var(--sp-4) var(--sp-4);
+      background: linear-gradient(160deg, #B45309 0%, #DC2626 100%);
+      color: #fff;
+    }
+
+    .ht-logo {
+      font-size: 48px;
+      line-height: 1;
+      margin-bottom: var(--sp-2);
+    }
+
+    .ht-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin: 0 0 var(--sp-1);
+    }
+
+    .ht-subtitle {
+      font-size: 14px;
+      opacity: 0.85;
+      margin: 0;
+    }
+
+    .ht-home-main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+      padding: var(--sp-6) var(--sp-5);
+      flex: 1;
+    }
+
+    /* ─── Mode Cards ────────────────────────────────────────────── */
+    .ht-mode-card {
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: var(--sp-5);
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .ht-mode-card--done {
+      border-color: var(--correct-bd);
+      background: var(--correct-bg);
+    }
+
+    /* ─── Big Mode Buttons ─────────────────────────────────────── */
+    .ht-big-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      width: 100%;
+      padding: var(--sp-4) var(--sp-5);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #fff;
+      transition: transform 0.15s, opacity 0.15s;
+      position: relative;
+    }
+
+    .ht-big-btn:hover  { transform: translateY(-2px); opacity: 0.93; }
+    .ht-big-btn:active { transform: translateY(0); }
+
+    .ht-big-btn--daily {
+      background: linear-gradient(120deg, #B45309, #C2410C);
+    }
+
+    .ht-big-btn--streak {
+      background: linear-gradient(120deg, #DC2626, #7C2D12);
+    }
+
+    .ht-big-btn-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .ht-big-btn-label { flex: 1; text-align: left; }
+
+    .ht-big-btn-badge {
+      font-size: 13px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      background: rgba(255,255,255,0.25);
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: none;
+      letter-spacing: 0;
+      flex-shrink: 0;
+    }
+
+    /* ─── Mode Meta (streak / tier info) ────────────────────────── */
+    .ht-mode-meta {
+      margin-top: var(--sp-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .ht-streak-display {
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+
+    .ht-streak-best {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .ht-tier-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .ht-tier-selector {
+      display: flex;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+
+    .ht-tier-btn {
+      padding: 6px 14px;
+      border: 2px solid var(--border-mid);
+      border-radius: 20px;
+      background: var(--bg);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-mid);
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .ht-tier-btn.active,
+    .ht-tier-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light, #fff7ed);
+    }
+
+    .ht-tier-bests {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ─── Screen Header ────────────────────────────────────────── */
+    .ht-screen-header {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-3) var(--sp-4);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .ht-back-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 4px 0;
+      white-space: nowrap;
+    }
+
+    .ht-back-btn:hover { text-decoration: underline; }
+
+    .ht-screen-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0;
+      flex: 1;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .ht-screen-date,
+    .ht-tier-pill {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .ht-tier-pill {
+      background: var(--accent-light, #fff7ed);
+      color: var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--accent);
+    }
+
+    /* ─── Puzzle Area ───────────────────────────────────────────── */
+    .ht-puzzle-area {
+      padding: var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+    }
+
+    .ht-region-badge {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-light, #fff7ed);
+      padding: 4px 12px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .ht-svg-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+
+    .ht-puzzle-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: contain;
+      background: #1a0f00;
+    }
+
+    /* Wrong flash: red outline & tint */
+    .ht-flash-wrong {
+      box-shadow: 0 0 0 4px var(--wrong), inset 0 0 60px rgba(220,38,38,0.25);
+      animation: ht-flash-wrong-anim 0.6s ease;
+    }
+
+    @keyframes ht-flash-wrong-anim {
+      0%   { box-shadow: 0 0 0 4px var(--wrong), inset 0 0 60px rgba(220,38,38,0.35); }
+      100% { box-shadow: none; }
+    }
+
+    /* Correct flash: green */
+    .ht-flash-correct {
+      box-shadow: 0 0 0 4px var(--correct), inset 0 0 40px rgba(22,163,74,0.2);
+      animation: ht-flash-correct-anim 0.5s ease;
+    }
+
+    @keyframes ht-flash-correct-anim {
+      0%   { box-shadow: 0 0 0 4px var(--correct); }
+      100% { box-shadow: none; }
+    }
+
+    .ht-prompt {
+      font-size: 15px;
+      color: var(--text-mid);
+      margin: 0;
+    }
+
+    /* ─── Option Buttons (Daily) ────────────────────────────────── */
+    .ht-options {
+      padding: 0 var(--sp-4) var(--sp-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    /* Reuse bs-opt from theme — already loaded. Add a tiny override: */
+    .ht-opt {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Result Panel ──────────────────────────────────────────── */
+    .ht-result-panel {
+      padding: var(--sp-5) var(--sp-4);
+      border-top: 2px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .ht-verdict {
+      font-size: 17px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .ht-streak-result {
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+
+    .ht-fact-box,
+    .ht-tricky-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: var(--sp-3) var(--sp-4);
+    }
+
+    .ht-fact-label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin: 0 0 var(--sp-2);
+    }
+
+    .ht-fact-text {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-mid);
+      margin: 0;
+    }
+
+    .ht-share-area {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+    }
+
+    .ht-share-string {
+      font-family: var(--font-body);
+      font-size: 13px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: var(--sp-3);
+      white-space: pre-wrap;
+      margin: 0;
+      color: var(--text-mid);
+    }
+
+    .ht-share-btn,
+    .ht-home-btn { width: 100%; }
+
+    /* ─── Streak Mode Form ─────────────────────────────────────── */
+    .ht-streak-scorebar {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--sp-3) var(--sp-5);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-mid);
+      flex-shrink: 0;
+    }
+
+    .ht-streak-form {
+      display: flex;
+      gap: var(--sp-3);
+      padding: 0 var(--sp-4) var(--sp-2);
+      align-items: stretch;
+    }
+
+    .ht-streak-input {
+      flex: 1;
+      padding: var(--sp-3) var(--sp-4);
+      border: 2px solid var(--border-mid);
+      border-radius: 10px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .ht-streak-input:focus {
+      border-color: var(--accent);
+    }
+
+    .ht-streak-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin: 0 0 var(--sp-4);
+      padding: 0 var(--sp-4);
+    }
+
+    /* ─── Timer Bar ─────────────────────────────────────────────── */
+    .ht-timer-bar-wrap {
+      height: 5px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .ht-timer-bar {
+      height: 100%;
+      background: var(--accent);
+      transition: width 1s linear, background 0.3s;
+    }
+
+    .ht-timer-bar--low {
+      background: var(--wrong);
+    }
+
+    /* ─── Game Over Screen ──────────────────────────────────────── */
+    .ht-gameover {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+    }
+
+    .ht-gameover-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-5);
+      padding: var(--sp-8) var(--sp-5) var(--sp-6);
+      text-align: center;
+    }
+
+    .ht-gameover-icon {
+      font-size: 64px;
+      line-height: 1;
+    }
+
+    .ht-gameover-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0;
+      color: var(--wrong);
+    }
+
+    .ht-gameover-stats {
+      display: flex;
+      gap: var(--sp-6);
+      justify-content: center;
+    }
+
+    .ht-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-1);
+    }
+
+    .ht-stat-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .ht-stat-value {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .ht-gameover-answer {
+      font-size: 16px;
+      color: var(--text-mid);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: var(--sp-3) var(--sp-5);
+      width: 100%;
+    }
+
+    .ht-gameover-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      width: 100%;
+    }
+
+    .ht-gameover-actions .bs-btn { width: 100%; }
+
+    /* ─── Answer Reveal Badge (overlay) ─────────────────────────── */
+    .ht-reveal-badge {
+      position: absolute;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 10px 24px;
+      border-radius: 10px;
+      pointer-events: none;
+      z-index: 100;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .ht-reveal-badge--correct {
+      background: var(--correct);
+      color: #fff;
+      border: 3px solid var(--correct-bd);
+    }
+
+    .ht-reveal-badge--wrong {
+      background: var(--wrong);
+      color: #fff;
+      border: 3px solid var(--wrong-bd);
+    }
+
+    .ht-reveal-badge--visible {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    /* ─── Toast ─────────────────────────────────────────────────── */
+    .ht-toast {
+      position: fixed;
+      bottom: var(--sp-6);
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1a0f00;
+      color: #f5d07a;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      padding: var(--sp-3) var(--sp-5);
+      border-radius: 24px;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+
+    .ht-toast--visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── Error State ────────────────────────────────────────────── */
+    .ht-error {
+      padding: var(--sp-8) var(--sp-5);
+      text-align: center;
+      color: var(--wrong);
+      font-size: 16px;
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .ht-title { font-size: 28px; }
+      .ht-big-btn { font-size: 20px; }
+      .ht-gameover-title { font-size: 32px; }
+      .ht-stat-value { font-size: 40px; }
+      .ht-puzzle-svg { max-height: 240px; }
+      .ht-streak-input { font-size: 18px; }
+    }
+  </style>
+</head>
+
+<body class="app-highway">
+  <!-- App root — JS renders all screens into this element -->
+  <div id="app"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
