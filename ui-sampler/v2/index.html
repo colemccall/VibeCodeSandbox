@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI/UX Refined — 3 Themes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+body {
+  background: #111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SHELL ── */
+#shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+#sidebar {
+  width: 180px;
+  flex-shrink: 0;
+  background: #161616;
+  border-right: 1px solid #252525;
+  padding: 24px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+#sidebar h2 {
+  font-family: Inter, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.theme-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #555;
+  font-size: 12px;
+  font-family: Inter, sans-serif;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 4px;
+}
+.theme-btn:hover { background: #1f1f1f; color: #aaa; }
+.theme-btn.active { background: #222; color: #eee; }
+.theme-btn .num { display: inline-block; width: 20px; font-size: 10px; color: #444; }
+.theme-btn.active .num { color: #666; }
+.theme-btn .name { font-weight: 600; }
+.theme-btn .sub { display: block; font-size: 10px; color: #444; margin-top: 1px; padding-left: 20px; }
+.theme-btn.active .sub { color: #555; }
+
+#main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow-y: auto;
+}
+
+.app-frame {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+}
+.app-frame.visible { display: block; }
+
+/* ════════════════════════════════════════
+   THEME 1: WORDLE MINIMAL
+   Refined: meta row, fact drawer, share
+   preview, subtle tile animations
+════════════════════════════════════════ */
+.t1 {
+  font-family: 'Lexend', sans-serif;
+  background: #fff;
+  color: #111;
+  border: 1px solid #e0e0e0;
+}
+
+/* Header */
+.t1 .hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.t1 .hdr-left { display: flex; align-items: center; gap: 14px; }
+.t1 .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; color: #111; }
+.t1 .puzzle-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bbb;
+  letter-spacing: 0.04em;
+}
+.t1 .hdr-right { display: flex; align-items: center; gap: 12px; }
+.t1 .streak {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+}
+.t1 .streak-fire { font-size: 16px; }
+.t1 .streak-best { font-size: 11px; font-weight: 500; color: #bbb; }
+.t1 .hdr-icon {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  transition: border-color 0.15s;
+}
+.t1 .hdr-icon:hover { border-color: #bbb; }
+
+/* Meta bar */
+.t1 .meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+.t1 .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #bbb;
+}
+.t1 .meta-item span { color: #888; }
+
+/* Puzzle */
+.t1 .puzzle-wrap { padding: 24px 20px 20px; }
+.t1 .prompt {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #bbb;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.t1 .puzzle-img {
+  width: 100%;
+  height: 210px;
+  background: #fafafa;
+  border: 1.5px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.t1 .difficulty-pip {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #f0f0f0;
+  color: #aaa;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* Options — full width tiles */
+.t1 .options { display: flex; flex-direction: column; gap: 8px; }
+.t1 .opt {
+  font-family: 'Lexend', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  background: #fff;
+  border: 2px solid #d3d6da;
+  color: #111;
+  padding: 16px 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: border-color 0.12s, background 0.12s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.t1 .opt-letter {
+  width: 26px;
+  height: 26px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #bbb;
+  border-color: #d3d6da;
+  transition: inherit;
+}
+.t1 .opt:hover:not(:disabled) { border-color: #6aaa64; }
+.t1 .opt:hover:not(:disabled) .opt-letter { border-color: #6aaa64; color: #6aaa64; }
+.t1 .opt.correct { background: #6aaa64; border-color: #6aaa64; color: #fff; }
+.t1 .opt.correct .opt-letter { border-color: rgba(255,255,255,0.5); color: #fff; }
+.t1 .opt.wrong { background: #c9b458; border-color: #c9b458; color: #fff; }
+.t1 .opt.wrong .opt-letter { border-color: rgba(255,255,255,0.5); color: #fff; }
+.t1 .opt.reveal { background: #6aaa64; border-color: #6aaa64; color: #fff; }
+.t1 .opt.reveal .opt-letter { border-color: rgba(255,255,255,0.5); color: #fff; }
+.t1 .opt:disabled { cursor: default; }
+
+/* Result */
+.t1 .result {
+  display: none;
+  border-top: 1px solid #e8e8e8;
+  padding: 20px;
+}
+.t1 .result.show { display: block; }
+
+.t1 .result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.t1 .result-verdict {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.t1 .result-verdict.win { color: #6aaa64; }
+.t1 .result-verdict.lose { color: #c9b458; }
+.t1 .result-next {
+  font-size: 11px;
+  color: #bbb;
+  font-weight: 500;
+  text-align: right;
+}
+.t1 .result-next strong { display: block; font-size: 14px; font-weight: 700; color: #333; }
+
+.t1 .fact-box {
+  background: #fafafa;
+  border: 1px solid #e8e8e8;
+  border-left: 3px solid #6aaa64;
+  padding: 12px 14px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 16px;
+}
+.t1 .fact-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 4px; }
+.t1 .fact-text { font-size: 13px; font-weight: 400; color: #444; line-height: 1.5; }
+
+.t1 .share-preview {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 14px;
+  font-family: monospace;
+  letter-spacing: 0.02em;
+}
+
+.t1 .actions { display: flex; gap: 8px; }
+.t1 .btn-share {
+  font-family: 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #6aaa64;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.15s;
+}
+.t1 .btn-share:hover { background: #538d4e; }
+.t1 .btn-reset {
+  font-family: 'Lexend', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  color: #bbb;
+  border: 2px solid #e0e0e0;
+  padding: 14px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.t1 .btn-reset:hover { border-color: #bbb; color: #888; }
+
+/* Stats row in result */
+.t1 .stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.t1 .stat-cell {
+  text-align: center;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 10px 4px;
+}
+.t1 .stat-num { font-size: 22px; font-weight: 800; color: #111; line-height: 1; }
+.t1 .stat-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #bbb; margin-top: 3px; }
+
+
+/* ════════════════════════════════════════
+   THEME 4: EDITORIAL SERIF
+   Refined: byline row, answer letters as
+   circular labels, structured result card
+════════════════════════════════════════ */
+.t4 {
+  font-family: 'DM Sans', sans-serif;
+  background: #faf9f6;
+  color: #1a1a1a;
+  border: 1px solid #ddd;
+}
+
+/* Header */
+.t4 .hdr {
+  padding: 20px 24px 16px;
+  border-bottom: 3px solid #111;
+}
+.t4 .hdr-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.t4 .logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  color: #111;
+  line-height: 1;
+}
+.t4 .hdr-right { text-align: right; }
+.t4 .streak-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px;
+  color: #111;
+  line-height: 1;
+}
+.t4 .streak-lbl { font-size: 11px; color: #aaa; letter-spacing: 0.04em; }
+.t4 .hdr-meta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 11px;
+  color: #aaa;
+}
+.t4 .hdr-meta span { margin: 0 8px; color: #ddd; }
+
+/* Puzzle */
+.t4 .puzzle-wrap { padding: 20px 24px; }
+.t4 .prompt {
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #888;
+  margin-bottom: 14px;
+}
+.t4 .puzzle-img {
+  width: 100%;
+  height: 210px;
+  background: #f0ede6;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+.t4 .difficulty-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaa;
+  background: rgba(255,255,255,0.85);
+  padding: 3px 8px;
+}
+
+/* Options — full width with letter circles */
+.t4 .options { display: flex; flex-direction: column; gap: 8px; }
+.t4 .opt {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  background: #fff;
+  border: 1.5px solid #ddd;
+  color: #1a1a1a;
+  padding: 14px 18px;
+  cursor: pointer;
+  border-radius: 2px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  transition: border-color 0.2s, background 0.2s;
+}
+.t4 .opt-circle {
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #aaa;
+  flex-shrink: 0;
+  transition: inherit;
+}
+.t4 .opt:hover:not(:disabled) { border-color: #111; background: #faf9f6; }
+.t4 .opt:hover:not(:disabled) .opt-circle { border-color: #111; color: #111; }
+.t4 .opt.correct { background: #f0fdf4; border-color: #16a34a; color: #15803d; }
+.t4 .opt.correct .opt-circle { border-color: #16a34a; color: #16a34a; background: #dcfce7; }
+.t4 .opt.wrong { background: #fff7ed; border-color: #ea580c; color: #c2410c; }
+.t4 .opt.wrong .opt-circle { border-color: #ea580c; color: #ea580c; background: #ffedd5; }
+.t4 .opt.reveal { background: #f0fdf4; border-color: #16a34a; color: #15803d; }
+.t4 .opt.reveal .opt-circle { border-color: #16a34a; color: #16a34a; background: #dcfce7; }
+.t4 .opt:disabled { cursor: default; }
+
+/* Rule between puzzle and result */
+.t4 .section-rule {
+  height: 1px;
+  background: #ddd;
+  margin: 0 24px;
+}
+
+/* Result */
+.t4 .result { display: none; padding: 20px 24px 24px; }
+.t4 .result.show { display: block; }
+
+.t4 .result-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+.t4 .verdict {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  line-height: 1.1;
+  color: #111;
+}
+.t4 .verdict.lose { font-style: italic; }
+.t4 .verdict-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
+
+.t4 .next-box {
+  text-align: right;
+  border-left: 1px solid #e8e8e8;
+  padding-left: 16px;
+}
+.t4 .next-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #bbb; margin-bottom: 4px; }
+.t4 .next-time { font-family: 'DM Serif Display', serif; font-size: 22px; color: #111; }
+
+.t4 .stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #ddd;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+}
+.t4 .stat-cell {
+  background: #faf9f6;
+  text-align: center;
+  padding: 12px 8px;
+}
+.t4 .stat-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: #111; line-height: 1; }
+.t4 .stat-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #aaa; margin-top: 4px; }
+
+.t4 .fact-box {
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 14px 0;
+  margin-bottom: 16px;
+}
+.t4 .fact-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.t4 .fact-text {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #444;
+  line-height: 1.5;
+}
+
+.t4 .share-preview {
+  font-size: 12px;
+  color: #aaa;
+  background: #f5f2ec;
+  border: 1px solid #e8e4dc;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-family: monospace;
+  line-height: 1.6;
+}
+
+.t4 .actions { display: flex; gap: 8px; }
+.t4 .btn-share {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #111;
+  color: #faf9f6;
+  border: none;
+  padding: 14px 24px;
+  cursor: pointer;
+  border-radius: 2px;
+  flex: 1;
+  transition: background 0.15s;
+}
+.t4 .btn-share:hover { background: #333; }
+.t4 .btn-reset {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  color: #bbb;
+  border: 1.5px solid #ddd;
+  padding: 14px 16px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+.t4 .btn-reset:hover { color: #888; border-color: #bbb; }
+
+
+/* ════════════════════════════════════════
+   THEME 6: BOLD SPORTS
+   Refined: stat badges in header, tab-style
+   difficulty, fact with icon, countdown timer
+════════════════════════════════════════ */
+.t6 {
+  font-family: 'Inter', sans-serif;
+  background: #fff;
+  color: #111;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+}
+
+/* Header */
+.t6 .hdr {
+  background: linear-gradient(135deg, #1E40AF 0%, #6D28D9 100%);
+  padding: 20px 24px 0;
+}
+.t6 .hdr-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.t6 .logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.t6 .puzzle-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.6);
+  margin-top: 3px;
+}
+.t6 .hdr-stats {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.t6 .stat-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 56px;
+}
+.t6 .stat-badge .num {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  display: block;
+}
+.t6 .stat-badge .lbl {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+}
+
+/* Difficulty tabs inside header */
+.t6 .diff-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: none;
+  margin-top: 4px;
+}
+.t6 .diff-tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 8px 14px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.t6 .diff-tab.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+.t6 .diff-tab:hover:not(.active) { color: rgba(255,255,255,0.7); }
+
+/* Puzzle area */
+.t6 .puzzle-wrap { padding: 20px 24px; }
+.t6 .puzzle-img {
+  width: 100%;
+  height: 210px;
+  background: #f4f4f8;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.t6 .puzzle-img::after {
+  content: 'What city is this?';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(30,64,175,0.06), transparent);
+  padding: 24px 14px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6D28D9;
+}
+
+/* 2x2 option grid */
+.t6 .options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.t6 .opt {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  background: #f7f7fb;
+  border: 2px solid transparent;
+  color: #1a1a2e;
+  padding: 16px 14px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.15s;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.t6 .opt-inner { display: flex; align-items: center; gap: 10px; }
+.t6 .opt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.t6 .opt-arrow {
+  font-size: 16px;
+  color: #ddd;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.t6 .opt:hover:not(:disabled) {
+  background: #ede9fe;
+  border-color: #7C3AED;
+  color: #5b21b6;
+}
+.t6 .opt:hover:not(:disabled) .opt-dot { background: #7C3AED; }
+.t6 .opt:hover:not(:disabled) .opt-arrow { opacity: 1; color: #7C3AED; }
+.t6 .opt.correct {
+  background: #f0fdf4;
+  border-color: #16a34a;
+  color: #15803d;
+}
+.t6 .opt.correct .opt-dot { background: #16a34a; }
+.t6 .opt.correct .opt-arrow { opacity: 1; color: #16a34a; }
+.t6 .opt.wrong {
+  background: #fef2f2;
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+.t6 .opt.wrong .opt-dot { background: #dc2626; }
+.t6 .opt.wrong .opt-arrow { opacity: 1; color: #dc2626; content: '✗'; }
+.t6 .opt.reveal {
+  background: #f0fdf4;
+  border-color: #16a34a;
+  color: #15803d;
+}
+.t6 .opt.reveal .opt-dot { background: #16a34a; }
+.t6 .opt.reveal .opt-arrow { opacity: 1; color: #16a34a; }
+.t6 .opt:disabled { cursor: default; }
+
+/* Result */
+.t6 .result { display: none; background: #fafafa; border-top: 1px solid #eee; }
+.t6 .result.show { display: block; }
+
+.t6 .result-hero {
+  background: linear-gradient(135deg, #1E40AF, #6D28D9);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.t6 .result-verdict-wrap {}
+.t6 .result-verdict {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+}
+.t6 .result-city { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 3px; }
+.t6 .result-emoji { font-size: 36px; }
+
+.t6 .stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 16px 24px;
+  gap: 8px;
+  border-bottom: 1px solid #eee;
+}
+.t6 .stat-cell { text-align: center; }
+.t6 .stat-num { font-size: 24px; font-weight: 700; color: #111; line-height: 1; }
+.t6 .stat-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #bbb; margin-top: 3px; }
+
+.t6 .fact-box {
+  padding: 16px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.t6 .fact-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #dbeafe, #ede9fe);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.t6 .fact-content {}
+.t6 .fact-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #7C3AED; margin-bottom: 4px; }
+.t6 .fact-text { font-size: 13px; color: #444; line-height: 1.5; }
+
+.t6 .share-preview {
+  margin: 0 24px;
+  background: #f4f4f8;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  font-family: monospace;
+  line-height: 1.6;
+}
+
+.t6 .actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 24px 20px;
+}
+.t6 .btn-share {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1E40AF, #6D28D9);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 1;
+  transition: opacity 0.15s;
+}
+.t6 .btn-share:hover { opacity: 0.9; }
+.t6 .btn-reset {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  color: #aaa;
+  border: 2px solid #eee;
+  padding: 14px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.t6 .btn-reset:hover { border-color: #ccc; color: #888; }
+
+/* ── SHARED ── */
+@keyframes pop { 0%{transform:scale(0.94);opacity:0} 60%{transform:scale(1.03)} 100%{transform:scale(1);opacity:1} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-7px)} 40%{transform:translateX(7px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+@keyframes fade-up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.anim-pop { animation: pop 0.28s ease forwards; }
+.anim-shake { animation: shake 0.38s ease forwards; }
+.anim-fade-up { animation: fade-up 0.4s ease forwards; }
+
+#toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #111;
+  color: #fff;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 11px 22px;
+  border-radius: 8px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 999;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+#toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div id="shell">
+  <nav id="sidebar">
+    <h2>Refined Themes</h2>
+    <button class="theme-btn active" data-theme="1">
+      <span class="num">01</span><span class="name">Wordle Minimal</span>
+      <span class="sub">Clean · Lexend · Green</span>
+    </button>
+    <button class="theme-btn" data-theme="4">
+      <span class="num">02</span><span class="name">Editorial Serif</span>
+      <span class="sub">Calm · DM Serif · Ink</span>
+    </button>
+    <button class="theme-btn" data-theme="6">
+      <span class="num">03</span><span class="name">Bold Sports</span>
+      <span class="sub">Energy · Gradient · Purple</span>
+    </button>
+  </nav>
+
+  <main id="main">
+
+    <!-- ══════════ THEME 1 ══════════ -->
+    <div class="app-frame t1 visible" data-frame="1">
+      <div class="hdr">
+        <div class="hdr-left">
+          <div class="logo">Road Grid</div>
+          <div class="puzzle-num">#47</div>
+        </div>
+        <div class="hdr-right">
+          <div class="streak">
+            <span class="streak-fire">🔥</span>
+            <span id="t1-streak-num">7</span>
+          </div>
+          <div class="streak-best">Best: 14</div>
+          <div class="hdr-icon" title="Stats">📊</div>
+          <div class="hdr-icon" title="How to play">?</div>
+        </div>
+      </div>
+      <div class="meta-bar">
+        <div class="meta-item">📅 <span>Monday, May 18</span></div>
+        <div class="meta-item">⏱ <span>Easy</span></div>
+        <div class="meta-item">👥 <span>12,483 played</span></div>
+      </div>
+      <div class="puzzle-wrap">
+        <div class="prompt">Identify the city from its road network</div>
+        <div class="puzzle-img">
+          <div class="difficulty-pip">Easy</div>
+          <svg viewBox="0 0 440 210" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <rect width="440" height="210" fill="#fafafa"/>
+            <g stroke="#ddd" stroke-width="0.8">
+              <line x1="0" y1="42" x2="440" y2="42"/><line x1="0" y1="84" x2="440" y2="84"/>
+              <line x1="0" y1="126" x2="440" y2="126"/><line x1="0" y1="168" x2="440" y2="168"/>
+              <line x1="44" y1="0" x2="44" y2="210"/><line x1="88" y1="0" x2="88" y2="210"/>
+              <line x1="132" y1="0" x2="132" y2="210"/><line x1="176" y1="0" x2="176" y2="210"/>
+              <line x1="220" y1="0" x2="220" y2="210"/><line x1="264" y1="0" x2="264" y2="210"/>
+              <line x1="308" y1="0" x2="308" y2="210"/><line x1="352" y1="0" x2="352" y2="210"/>
+              <line x1="396" y1="0" x2="396" y2="210"/>
+            </g>
+            <g stroke="#bbb" stroke-width="1.8">
+              <line x1="0" y1="105" x2="440" y2="105"/>
+              <line x1="220" y1="0" x2="220" y2="210"/>
+            </g>
+            <line x1="0" y1="178" x2="160" y2="22" stroke="#999" stroke-width="2.5"/>
+            <line x1="0" y1="63" x2="440" y2="63" stroke="#888" stroke-width="3.5"/>
+            <line x1="88" y1="0" x2="88" y2="210" stroke="#888" stroke-width="3.5"/>
+            <line x1="0" y1="147" x2="440" y2="147" stroke="#aaa" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <div class="options">
+          <button class="opt" data-correct="true" onclick="guess(this,1)">
+            <span class="opt-letter">A</span> Phoenix, AZ
+          </button>
+          <button class="opt" onclick="guess(this,1)">
+            <span class="opt-letter">B</span> Tucson, AZ
+          </button>
+          <button class="opt" onclick="guess(this,1)">
+            <span class="opt-letter">C</span> Las Vegas, NV
+          </button>
+          <button class="opt" onclick="guess(this,1)">
+            <span class="opt-letter">D</span> Albuquerque, NM
+          </button>
+        </div>
+      </div>
+      <div class="result" id="t1-result">
+        <div class="result-header">
+          <div>
+            <div class="result-verdict win" id="t1-verdict">Correct!</div>
+          </div>
+          <div class="result-next">
+            Next puzzle in
+            <strong id="t1-timer">08:42:17</strong>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-cell"><div class="stat-num">47</div><div class="stat-lbl">Played</div></div>
+          <div class="stat-cell"><div class="stat-num">74%</div><div class="stat-lbl">Win %</div></div>
+          <div class="stat-cell"><div class="stat-num" id="t1-streak-stat">8</div><div class="stat-lbl">Streak</div></div>
+          <div class="stat-cell"><div class="stat-num">14</div><div class="stat-lbl">Best</div></div>
+        </div>
+        <div class="fact-box">
+          <div class="fact-label">Did you know</div>
+          <div class="fact-text">Phoenix's grid follows strict 1-mile township survey blocks — one of the most geometrically regular urban grids in the United States.</div>
+        </div>
+        <div class="share-preview">Road Grid #47 ✅<br>Streak: 8 🗺️<br>roadgrid.app</div>
+        <div class="actions">
+          <button class="btn-share" onclick="share(1)">📋 Copy &amp; Share</button>
+          <button class="btn-reset" onclick="resetGame(1)">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ THEME 4 ══════════ -->
+    <div class="app-frame t4" data-frame="4">
+      <div class="hdr">
+        <div class="hdr-top">
+          <div class="logo">Road Grid</div>
+          <div class="hdr-right">
+            <div class="streak-num" id="t4-streak-num">7</div>
+            <div class="streak-lbl">day streak</div>
+          </div>
+        </div>
+        <div class="hdr-meta">
+          Monday, May 18, 2026
+          <span>·</span>
+          Puzzle No. 47
+          <span>·</span>
+          Easy
+        </div>
+      </div>
+      <div class="puzzle-wrap">
+        <div class="prompt">Which city has this road network?</div>
+        <div class="puzzle-img">
+          <div class="difficulty-tag">Easy</div>
+          <svg viewBox="0 0 432 210" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <rect width="432" height="210" fill="#f0ede6"/>
+            <g stroke="#c8c0b0" stroke-width="0.8">
+              <line x1="0" y1="42" x2="432" y2="42"/><line x1="0" y1="84" x2="432" y2="84"/>
+              <line x1="0" y1="126" x2="432" y2="126"/><line x1="0" y1="168" x2="432" y2="168"/>
+              <line x1="44" y1="0" x2="44" y2="210"/><line x1="88" y1="0" x2="88" y2="210"/>
+              <line x1="132" y1="0" x2="132" y2="210"/><line x1="176" y1="0" x2="176" y2="210"/>
+              <line x1="220" y1="0" x2="220" y2="210"/><line x1="264" y1="0" x2="264" y2="210"/>
+              <line x1="308" y1="0" x2="308" y2="210"/><line x1="352" y1="0" x2="352" y2="210"/>
+              <line x1="396" y1="0" x2="396" y2="210"/>
+            </g>
+            <g stroke="#aaa" stroke-width="1.8">
+              <line x1="0" y1="105" x2="432" y2="105"/>
+              <line x1="216" y1="0" x2="216" y2="210"/>
+            </g>
+            <line x1="0" y1="178" x2="160" y2="22" stroke="#888" stroke-width="2.5"/>
+            <line x1="0" y1="63" x2="432" y2="63" stroke="#777" stroke-width="3.5"/>
+            <line x1="88" y1="0" x2="88" y2="210" stroke="#777" stroke-width="3.5"/>
+          </svg>
+        </div>
+        <div class="options">
+          <button class="opt" data-correct="true" onclick="guess(this,4)">
+            <div class="opt-circle">A</div> Phoenix, AZ
+          </button>
+          <button class="opt" onclick="guess(this,4)">
+            <div class="opt-circle">B</div> Tucson, AZ
+          </button>
+          <button class="opt" onclick="guess(this,4)">
+            <div class="opt-circle">C</div> Las Vegas, NV
+          </button>
+          <button class="opt" onclick="guess(this,4)">
+            <div class="opt-circle">D</div> Albuquerque, NM
+          </button>
+        </div>
+      </div>
+      <div class="section-rule"></div>
+      <div class="result" id="t4-result">
+        <div class="result-top">
+          <div>
+            <div class="verdict" id="t4-verdict">Correct.</div>
+            <div class="verdict-sub" id="t4-verdict-sub">You identified Phoenix, AZ.</div>
+          </div>
+          <div class="next-box">
+            <div class="next-label">Next puzzle</div>
+            <div class="next-time" id="t4-timer">08:42:17</div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-cell"><div class="stat-num">47</div><div class="stat-lbl">Played</div></div>
+          <div class="stat-cell"><div class="stat-num" id="t4-streak-stat">8</div><div class="stat-lbl">Streak</div></div>
+          <div class="stat-cell"><div class="stat-num">14</div><div class="stat-lbl">Best</div></div>
+        </div>
+        <div class="fact-box">
+          <div class="fact-label">On Phoenix</div>
+          <div class="fact-text">"Phoenix's grid follows strict 1-mile township survey blocks — one of the most geometrically regular urban grids in the United States."</div>
+        </div>
+        <div class="share-preview">Road Grid #47 ✅<br>Streak: 8 🗺️<br>roadgrid.app</div>
+        <div class="actions">
+          <button class="btn-share" onclick="share(4)">Copy Result</button>
+          <button class="btn-reset" onclick="resetGame(4)">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════ THEME 6 ══════════ -->
+    <div class="app-frame t6" data-frame="6">
+      <div class="hdr">
+        <div class="hdr-top">
+          <div>
+            <div class="logo">Road Grid</div>
+            <div class="puzzle-tag">Daily Challenge · #47 · Monday, May 18</div>
+          </div>
+          <div class="hdr-stats">
+            <div class="stat-badge">
+              <span class="num" id="t6-streak-num">7</span>
+              <span class="lbl">Streak</span>
+            </div>
+            <div class="stat-badge">
+              <span class="num">14</span>
+              <span class="lbl">Best</span>
+            </div>
+          </div>
+        </div>
+        <div class="diff-tabs">
+          <button class="diff-tab active">Easy</button>
+          <button class="diff-tab">Medium</button>
+          <button class="diff-tab">Hard</button>
+        </div>
+      </div>
+      <div class="puzzle-wrap">
+        <div class="puzzle-img">
+          <svg viewBox="0 0 432 210" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <rect width="432" height="210" fill="#f4f4f8"/>
+            <g stroke="#e0ddf0" stroke-width="0.8">
+              <line x1="0" y1="42" x2="432" y2="42"/><line x1="0" y1="84" x2="432" y2="84"/>
+              <line x1="0" y1="126" x2="432" y2="126"/><line x1="0" y1="168" x2="432" y2="168"/>
+              <line x1="44" y1="0" x2="44" y2="210"/><line x1="88" y1="0" x2="88" y2="210"/>
+              <line x1="132" y1="0" x2="132" y2="210"/><line x1="176" y1="0" x2="176" y2="210"/>
+              <line x1="220" y1="0" x2="220" y2="210"/><line x1="264" y1="0" x2="264" y2="210"/>
+              <line x1="308" y1="0" x2="308" y2="210"/><line x1="352" y1="0" x2="352" y2="210"/>
+              <line x1="396" y1="0" x2="396" y2="210"/>
+            </g>
+            <g stroke="#c4b8f0" stroke-width="1.8">
+              <line x1="0" y1="105" x2="432" y2="105"/>
+              <line x1="216" y1="0" x2="216" y2="210"/>
+            </g>
+            <line x1="0" y1="178" x2="160" y2="22" stroke="#9b8dd0" stroke-width="2.5"/>
+            <line x1="0" y1="63" x2="432" y2="63" stroke="#6D28D9" stroke-width="3.5" opacity="0.7"/>
+            <line x1="88" y1="0" x2="88" y2="210" stroke="#1E40AF" stroke-width="3.5" opacity="0.7"/>
+          </svg>
+        </div>
+        <div class="options">
+          <button class="opt" data-correct="true" onclick="guess(this,6)">
+            <span class="opt-inner"><span class="opt-dot"></span>Phoenix, AZ</span>
+            <span class="opt-arrow">→</span>
+          </button>
+          <button class="opt" onclick="guess(this,6)">
+            <span class="opt-inner"><span class="opt-dot"></span>Tucson, AZ</span>
+            <span class="opt-arrow">→</span>
+          </button>
+          <button class="opt" onclick="guess(this,6)">
+            <span class="opt-inner"><span class="opt-dot"></span>Las Vegas, NV</span>
+            <span class="opt-arrow">→</span>
+          </button>
+          <button class="opt" onclick="guess(this,6)">
+            <span class="opt-inner"><span class="opt-dot"></span>Albuquerque, NM</span>
+            <span class="opt-arrow">→</span>
+          </button>
+        </div>
+      </div>
+      <div class="result" id="t6-result">
+        <div class="result-hero">
+          <div class="result-verdict-wrap">
+            <div class="result-verdict" id="t6-verdict">Correct!</div>
+            <div class="result-city" id="t6-city">Phoenix, AZ</div>
+          </div>
+          <div class="result-emoji" id="t6-emoji">✅</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-cell"><div class="stat-num">47</div><div class="stat-lbl">Played</div></div>
+          <div class="stat-cell"><div class="stat-num">74%</div><div class="stat-lbl">Win %</div></div>
+          <div class="stat-cell"><div class="stat-num" id="t6-streak-stat">8</div><div class="stat-lbl">Streak</div></div>
+          <div class="stat-cell"><div class="stat-num">14</div><div class="stat-lbl">Best</div></div>
+        </div>
+        <div class="fact-box">
+          <div class="fact-icon">🗺️</div>
+          <div class="fact-content">
+            <div class="fact-label">Did you know</div>
+            <div class="fact-text">Phoenix's grid follows strict 1-mile township survey blocks — one of the most geometrically regular urban grids in the United States.</div>
+          </div>
+        </div>
+        <div class="share-preview">Road Grid #47 ✅<br>Streak: 8 🗺️<br>roadgrid.app</div>
+        <div class="actions">
+          <button class="btn-share" onclick="share(6)">📋 Copy &amp; Share</button>
+          <button class="btn-reset" onclick="resetGame(6)">Reset</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div id="toast">Copied to clipboard! ✓</div>
+
+<script>
+  // Theme switcher
+  const btns = document.querySelectorAll('.theme-btn');
+  const frames = document.querySelectorAll('.app-frame');
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const t = b.dataset.theme;
+    frames.forEach(f => {
+      f.classList.remove('visible');
+      if (f.dataset.frame === t) f.classList.add('visible');
+    });
+  }));
+
+  // Countdown timer
+  function updateTimers() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const diff = tomorrow - now;
+    const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+    const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+    const str = `${h}:${m}:${s}`;
+    ['t1-timer', 't4-timer'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = str;
+    });
+  }
+  updateTimers();
+  setInterval(updateTimers, 1000);
+
+  // Difficulty tab interaction (theme 6)
+  document.querySelectorAll('.diff-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.diff-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // Streaks
+  const streaks = { 1: 7, 4: 7, 6: 7 };
+
+  function guess(btn, theme) {
+    const frame = document.querySelector(`[data-frame="${theme}"]`);
+    const allBtns = frame.querySelectorAll('.opt');
+    const isCorrect = btn.dataset.correct === 'true';
+
+    allBtns.forEach(b => b.disabled = true);
+    btn.classList.add(isCorrect ? 'correct' : 'wrong');
+    btn.classList.add(isCorrect ? 'anim-pop' : 'anim-shake');
+
+    if (isCorrect) {
+      streaks[theme]++;
+    } else {
+      allBtns.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('reveal'); });
+      streaks[theme] = 0;
+    }
+
+    updateStreakDisplay(theme, isCorrect);
+
+    setTimeout(() => {
+      showResult(theme, isCorrect);
+    }, 380);
+  }
+
+  function updateStreakDisplay(theme, isCorrect) {
+    const n = streaks[theme];
+    if (theme === 1) {
+      document.getElementById('t1-streak-num').textContent = n;
+      document.getElementById('t1-streak-stat').textContent = n;
+    }
+    if (theme === 4) {
+      document.getElementById('t4-streak-num').textContent = n;
+      document.getElementById('t4-streak-stat').textContent = n;
+    }
+    if (theme === 6) {
+      document.getElementById('t6-streak-num').textContent = n;
+      document.getElementById('t6-streak-stat').textContent = n;
+    }
+  }
+
+  function showResult(theme, isCorrect) {
+    const el = document.getElementById(`t${theme}-result`);
+    el.classList.add('show', 'anim-fade-up');
+
+    if (theme === 1) {
+      const v = document.getElementById('t1-verdict');
+      v.textContent = isCorrect ? 'Correct!' : 'Not quite.';
+      v.className = 'result-verdict ' + (isCorrect ? 'win' : 'lose');
+    }
+    if (theme === 4) {
+      const v = document.getElementById('t4-verdict');
+      const s = document.getElementById('t4-verdict-sub');
+      v.textContent = isCorrect ? 'Correct.' : 'Not this time.';
+      v.className = 'verdict' + (isCorrect ? '' : ' lose');
+      s.textContent = isCorrect ? 'You identified Phoenix, AZ.' : 'The answer was Phoenix, AZ.';
+    }
+    if (theme === 6) {
+      const v = document.getElementById('t6-verdict');
+      const c = document.getElementById('t6-city');
+      const e = document.getElementById('t6-emoji');
+      v.textContent = isCorrect ? 'Correct!' : 'Incorrect';
+      c.textContent = isCorrect ? 'Phoenix, AZ — you got it.' : 'The answer was Phoenix, AZ.';
+      e.textContent = isCorrect ? '✅' : '❌';
+    }
+  }
+
+  function resetGame(theme) {
+    const frame = document.querySelector(`[data-frame="${theme}"]`);
+    frame.querySelectorAll('.opt').forEach(b => {
+      b.disabled = false;
+      b.className = 'opt';
+    });
+    const result = document.getElementById(`t${theme}-result`);
+    result.classList.remove('show', 'anim-fade-up');
+    streaks[theme] = 7;
+    updateStreakDisplay(theme, true);
+  }
+
+  function share(theme) {
+    const n = streaks[theme];
+    const text = `Road Grid #47 ✅\nStreak: ${n} 🗺️\nroadgrid.app`;
+    navigator.clipboard.writeText(text).then(() => {
+      const t = document.getElementById('toast');
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    });
+  }
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    if (e.key === '1') document.querySelector('[data-theme="1"]').click();
+    if (e.key === '2') document.querySelector('[data-theme="4"]').click();
+    if (e.key === '3') document.querySelector('[data-theme="6"]').click();
+  });
+</script>
+</body>
+</html>
