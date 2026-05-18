@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <rect width="900" height="700" fill="#1a0f00"/>
+
+  <!-- I-44 (modern parallel, shown) -->
+  <rect x="50" y="300" width="800" height="38" rx="4" fill="#3a2000"/>
+  <line x1="70" y1="319" x2="830" y2="319" stroke="#f5d07a" stroke-width="4" stroke-dasharray="20,10"/>
+
+  <!-- US-66 (missing, slightly below) -->
+  <rect x="50" y="380" width="290" height="38" rx="4" fill="#3a2000"/>
+  <rect x="560" y="380" width="290" height="38" rx="4" fill="#3a2000"/>
+  <line x1="70" y1="399" x2="330" y2="399" stroke="#f5d07a" stroke-width="3" stroke-dasharray="15,8"/>
+  <line x1="570" y1="399" x2="830" y2="399" stroke="#f5d07a" stroke-width="3" stroke-dasharray="15,8"/>
+
+  <!-- I-44 shield -->
+  <rect x="680" y="230" width="70" height="70" rx="8" fill="#1a3a8f"/>
+  <rect x="683" y="233" width="64" height="64" rx="6" fill="#1a3a8f" stroke="#f5d07a" stroke-width="2"/>
+  <text x="715" y="258" font-family="Arial Black, sans-serif" font-size="11" fill="#f5d07a" text-anchor="middle" font-weight="bold">INTER-</text>
+  <text x="715" y="273" font-family="Arial Black, sans-serif" font-size="11" fill="#f5d07a" text-anchor="middle" font-weight="bold">STATE</text>
+  <text x="715" y="293" font-family="Arial Black, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">44</text>
+
+  <!-- Mississippi River hint (left edge) -->
+  <path d="M 60 50 Q 80 200 70 350 Q 60 500 80 650" stroke="#1a3a8f" stroke-width="20" fill="none" opacity="0.4"/>
+
+  <!-- Missing badge -->
+  <circle cx="450" cy="399" r="48" fill="#b45309" stroke="#f5d07a" stroke-width="3"/>
+  <text x="450" y="414" font-family="Arial Black, sans-serif" font-size="42" fill="#fff7ed" text-anchor="middle" font-weight="bold">?</text>
+
+  <text x="450" y="660" font-family="Arial, sans-serif" font-size="18" fill="#f5d07a" text-anchor="middle" opacity="0.7">Missouri</text>
+</svg>

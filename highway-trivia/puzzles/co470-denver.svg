@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <rect width="900" height="700" fill="#1a0f00"/>
+
+  <!-- C-470 arc (missing — southwest beltway, partial arc) -->
+  <path d="M 200 100 Q 100 350 200 600" stroke="#3a2000" stroke-width="38" fill="none"/>
+  <path d="M 200 100 Q 100 350 200 600" stroke="#f5d07a" stroke-width="3" fill="none" stroke-dasharray="18,8"/>
+  <!-- Gap for badge -->
+  <path d="M 130 320 Q 100 350 130 380" stroke="#1a0f00" stroke-width="42" fill="none"/>
+
+  <!-- E-470 arc (toll, shown — northeast beltway) -->
+  <path d="M 500 80 Q 820 350 500 620" stroke="#3a2000" stroke-width="38" fill="none"/>
+  <path d="M 500 80 Q 820 350 500 620" stroke="#f5d07a" stroke-width="3" fill="none" stroke-dasharray="15,8"/>
+
+  <!-- E-470 label -->
+  <rect x="710" y="310" width="100" height="44" rx="6" fill="#2a1800" stroke="#f5d07a" stroke-width="1"/>
+  <text x="760" y="336" font-family="Arial, sans-serif" font-size="14" fill="#f5d07a" text-anchor="middle" font-weight="bold">E-470</text>
+
+  <!-- I-70 east-west (shown) -->
+  <rect x="200" y="320" width="600" height="38" rx="4" fill="#3a2000"/>
+  <line x1="220" y1="339" x2="780" y2="339" stroke="#f5d07a" stroke-width="4" stroke-dasharray="20,10"/>
+
+  <!-- I-70 shield -->
+  <rect x="380" y="240" width="70" height="70" rx="8" fill="#1a3a8f"/>
+  <rect x="383" y="243" width="64" height="64" rx="6" fill="#1a3a8f" stroke="#f5d07a" stroke-width="2"/>
+  <text x="415" y="268" font-family="Arial Black, sans-serif" font-size="11" fill="#f5d07a" text-anchor="middle" font-weight="bold">INTER-</text>
+  <text x="415" y="283" font-family="Arial Black, sans-serif" font-size="11" fill="#f5d07a" text-anchor="middle" font-weight="bold">STATE</text>
+  <text x="415" y="303" font-family="Arial Black, sans-serif" font-size="18" fill="white" text-anchor="middle" font-weight="bold">70</text>
+
+  <!-- Missing badge (on C-470 arc) -->
+  <circle cx="130" cy="350" r="48" fill="#b45309" stroke="#f5d07a" stroke-width="3"/>
+  <text x="130" y="365" font-family="Arial Black, sans-serif" font-size="42" fill="#fff7ed" text-anchor="middle" font-weight="bold">?</text>
+
+  <text x="450" y="660" font-family="Arial, sans-serif" font-size="18" fill="#f5d07a" text-anchor="middle" opacity="0.7">Denver Metro, CO</text>
+</svg>

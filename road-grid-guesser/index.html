@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Road Grid Guesser</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Shared design system -->
+  <link rel="stylesheet" href="../../design-system/theme.css"/>
+
+  <style>
+    /* ── Page shell ─────────────────────────────────────────── */
+    body {
+      background: linear-gradient(160deg, #1e1e3a 0%, #2d1b69 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 60px;
+      gap: 16px;
+    }
+
+    /* ── Ad placeholders ────────────────────────────────────── */
+    #ad-top {
+      width: 728px;
+      max-width: 100%;
+      height: 90px;
+      background: #ccc;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    #ad-bottom {
+      width: 300px;
+      height: 250px;
+      background: #ccc;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      letter-spacing: 0.04em;
+      margin-top: 8px;
+    }
+
+    /* ── Main card ──────────────────────────────────────────── */
+    .app-card {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* ── Puzzle image override — taller for SVG grids ─────── */
+    .bs-puzzle-img {
+      height: 260px;
+      background: #111;
+    }
+    .bs-puzzle-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      display: block;
+    }
+
+    /* ── Puzzle meta bar ────────────────────────────────────── */
+    .puzzle-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--sp-4);
+    }
+    .puzzle-meta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .puzzle-num {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .puzzle-date-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── Difficulty badge ───────────────────────────────────── */
+    .difficulty-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .diff-easy   { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+    .diff-medium { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+    .diff-hard   { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+
+    /* ── Options prompt label ───────────────────────────────── */
+    .options-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: var(--sp-3);
+    }
+
+    /* ── No puzzle message ──────────────────────────────────── */
+    #no-puzzle-msg {
+      display: none;
+      text-align: center;
+      padding: var(--sp-10) var(--sp-6);
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Result panel inner ─────────────────────────────────── */
+    .result-inner-pad {
+      padding: 0 var(--sp-6) var(--sp-4);
+    }
+
+    /* ── Archive grid ───────────────────────────────────────── */
+    #archive-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: var(--sp-4) var(--sp-6) var(--sp-6);
+    }
+
+    .archive-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .archive-card.clickable {
+      cursor: pointer;
+    }
+    .archive-card.clickable:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .archive-card.played-correct {
+      border-color: var(--correct-bd);
+    }
+    .archive-card.played-wrong {
+      border-color: var(--wrong-bd);
+    }
+
+    .archive-thumb {
+      width: 100%;
+      height: 90px;
+      background: #111;
+      overflow: hidden;
+    }
+    .archive-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .archive-meta {
+      padding: var(--sp-2) var(--sp-3) var(--sp-3);
+    }
+    .archive-city {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .archive-date {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: var(--sp-2);
+    }
+    .archive-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .archive-status {
+      font-size: 16px;
+    }
+    .archive-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: var(--sp-8);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* ── Archive header area ────────────────────────────────── */
+    .archive-intro {
+      padding: var(--sp-4) var(--sp-6) 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      #ad-top { height: 60px; font-size: 11px; }
+      #archive-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .bs-puzzle-img { height: 200px; }
+    }
+    @media (max-width: 400px) {
+      #archive-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body class="app-road-grid">
+
+  <!-- ── Top ad (728×90) ──────────────────────────────────── -->
+  <div id="ad-top">Ad 728×90</div>
+
+  <!-- ── Main card ────────────────────────────────────────── -->
+  <div class="bs-card app-road-grid app-card">
+
+    <!-- HEADER -->
+    <header class="bs-header">
+      <div class="bs-header-top">
+        <div>
+          <div class="bs-logo">Road Grid 🗺️</div>
+          <div class="bs-logo-sub">Guess the city from its street pattern</div>
+        </div>
+        <div class="bs-badges">
+          <div class="bs-badge">
+            <span class="bs-badge-num" id="badge-streak">0</span>
+            <span class="bs-badge-lbl">Streak</span>
+          </div>
+          <div class="bs-badge">
+            <span class="bs-badge-num" id="badge-best">0</span>
+            <span class="bs-badge-lbl">Best</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab navigation -->
+      <nav class="bs-tabs">
+        <button class="bs-tab active" data-tab="game">Today</button>
+        <button class="bs-tab" data-tab="archive">Archive</button>
+      </nav>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════
+         GAME PANEL
+    ════════════════════════════════════════════════ -->
+    <div id="panel-game">
+
+      <!-- Puzzle area (hidden once answered / no puzzle) -->
+      <div id="puzzle-area">
+        <div class="bs-puzzle">
+
+          <!-- Puzzle number + date + difficulty -->
+          <div class="puzzle-meta">
+            <div class="puzzle-meta-left">
+              <span class="puzzle-num" id="puzzle-num">#—</span>
+              <span class="puzzle-date-lbl" id="puzzle-date">—</span>
+            </div>
+            <span class="difficulty-badge diff-medium" id="difficulty-badge">Medium</span>
+          </div>
+
+          <!-- Road grid image -->
+          <div class="bs-puzzle-img">
+            <img id="puzzle-img" src="" alt="Road grid puzzle"/>
+          </div>
+
+          <!-- Options prompt -->
+          <p class="options-label">Which city is this?</p>
+
+          <!-- Answer options (2-column grid) -->
+          <div class="bs-options" id="options">
+            <!-- Dynamically populated by app.js -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- No puzzle fallback -->
+      <div id="no-puzzle-msg">
+        <p>No puzzle available for today.<br/>Check back tomorrow!</p>
+      </div>
+
+      <!-- ─── Result Panel (hidden until guess) ─── -->
+      <div class="bs-result" id="result-panel">
+
+        <!-- Gradient hero strip -->
+        <div class="bs-result-hero">
+          <div>
+            <div class="bs-result-verdict" id="result-verdict">Correct!</div>
+            <div class="bs-result-sub" id="result-sub"></div>
+          </div>
+          <div class="bs-result-emoji" id="result-emoji">✅</div>
+        </div>
+
+        <!-- Stats row (4 stats) -->
+        <div class="bs-stats">
+          <div class="bs-stat">
+            <div class="bs-stat-num" id="stat-streak">0</div>
+            <div class="bs-stat-lbl">Streak</div>
+          </div>
+          <div class="bs-stat">
+            <div class="bs-stat-num" id="stat-best">0</div>
+            <div class="bs-stat-lbl">Best</div>
+          </div>
+          <div class="bs-stat">
+            <div class="bs-stat-num" id="stat-played">0</div>
+            <div class="bs-stat-lbl">Played</div>
+          </div>
+          <div class="bs-stat">
+            <div class="bs-stat-num" id="stat-pct">0%</div>
+            <div class="bs-stat-lbl">Win %</div>
+          </div>
+        </div>
+
+        <!-- Fun fact -->
+        <div class="bs-fact">
+          <div class="bs-fact-icon">🗺️</div>
+          <div>
+            <div class="bs-fact-label">Did you know?</div>
+            <div class="bs-fact-text" id="fun-fact-text"></div>
+          </div>
+        </div>
+
+        <!-- Share string preview -->
+        <div class="result-inner-pad">
+          <div class="bs-label" style="margin-bottom:6px;">Share your result</div>
+          <div class="bs-share-preview" id="share-preview"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bs-actions">
+          <button class="bs-btn bs-btn-primary" id="btn-share">
+            Copy &amp; Share 📋
+          </button>
+          <button class="bs-btn bs-btn-secondary" onclick="showTab('archive')">
+            Archive
+          </button>
+        </div>
+
+      </div>
+      <!-- /result-panel -->
+
+    </div>
+    <!-- /panel-game -->
+
+    <!-- ═══════════════════════════════════════════════
+         ARCHIVE PANEL
+    ════════════════════════════════════════════════ -->
+    <div id="panel-archive" style="display:none;">
+      <p class="archive-intro">Past puzzles — click any unplayed puzzle to give it a try.</p>
+      <div id="archive-grid">
+        <!-- Dynamically populated by app.js renderArchive() -->
+      </div>
+    </div>
+    <!-- /panel-archive -->
+
+  </div>
+  <!-- /app-card -->
+
+  <!-- ── Bottom ad (300×250) ──────────────────────────────── -->
+  <div id="ad-bottom">Ad 300×250</div>
+
+  <!-- ── Toast notification ───────────────────────────────── -->
+  <div id="bs-toast"></div>
+
+  <!-- ── App script ────────────────────────────────────────── -->
+  <script src="app.js"></script>
+
+</body>
+</html>
