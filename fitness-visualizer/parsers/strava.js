@@ -233,9 +233,10 @@ function rowToActivity(row) {
   const name = row['Activity Name'] || row['name'] || 'Strava Activity';
   const type = mapType(row['Activity Type'] || row['type'] || '');
 
-  // Distance: Strava exports in kilometres
-  const distKm = parseFloat(row['Distance'] || row['distance'] || '0');
-  const distance_m = distKm * 1000;
+  // Distance: Strava exports in miles in the activities.csv (regardless of
+  // the user's display unit preference). Convert miles → metres.
+  const distMi = parseFloat(row['Distance'] || row['distance'] || '0');
+  const distance_m = distMi * 1609.34;
 
   // Duration: "Elapsed Time" is in seconds
   const duration_s = parseDuration(row['Elapsed Time'] || row['elapsed_time'] || '0');
