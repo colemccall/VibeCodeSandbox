@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <rect width="900" height="700" fill="#1a0f00"/>
+  <line x1="0" y1="350" x2="900" y2="350" stroke="#2a1800" stroke-width="1"/>
+
+  <!-- US-30 east-west (missing) -->
+  <rect x="50" y="280" width="330" height="38" rx="4" fill="#3a2000"/>
+  <rect x="520" y="280" width="330" height="38" rx="4" fill="#3a2000"/>
+  <line x1="70" y1="299" x2="370" y2="299" stroke="#f5d07a" stroke-width="4" stroke-dasharray="20,10"/>
+  <line x1="530" y1="299" x2="830" y2="299" stroke="#f5d07a" stroke-width="4" stroke-dasharray="20,10"/>
+
+  <!-- US-22 parallel route -->
+  <rect x="50" y="380" width="330" height="38" rx="4" fill="#3a2000"/>
+  <rect x="520" y="380" width="330" height="38" rx="4" fill="#3a2000"/>
+  <line x1="70" y1="399" x2="370" y2="399" stroke="#f5d07a" stroke-width="3" stroke-dasharray="15,8"/>
+  <line x1="530" y1="399" x2="830" y2="399" stroke="#f5d07a" stroke-width="3" stroke-dasharray="15,8"/>
+
+  <!-- US-22 shield (black & white US style) -->
+  <rect x="680" y="410" width="70" height="56" rx="6" fill="#f5f5f5" stroke="#1a0f00" stroke-width="2"/>
+  <text x="715" y="430" font-family="Arial Black, sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">U·S</text>
+  <line x1="690" y1="436" x2="740" y2="436" stroke="#111" stroke-width="1.5"/>
+  <text x="715" y="458" font-family="Arial Black, sans-serif" font-size="18" fill="#111" text-anchor="middle" font-weight="bold">22</text>
+
+  <!-- US-40 shield -->
+  <rect x="130" y="430" width="70" height="56" rx="6" fill="#f5f5f5" stroke="#1a0f00" stroke-width="2"/>
+  <text x="165" y="450" font-family="Arial Black, sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">U·S</text>
+  <line x1="143" y1="456" x2="193" y2="456" stroke="#111" stroke-width="1.5"/>
+  <text x="165" y="478" font-family="Arial Black, sans-serif" font-size="18" fill="#111" text-anchor="middle" font-weight="bold">40</text>
+
+  <!-- Missing badge -->
+  <circle cx="450" cy="299" r="48" fill="#b45309" stroke="#f5d07a" stroke-width="3"/>
+  <text x="450" y="314" font-family="Arial Black, sans-serif" font-size="42" fill="#fff7ed" text-anchor="middle" font-weight="bold">?</text>
+
+  <text x="450" y="660" font-family="Arial, sans-serif" font-size="18" fill="#f5d07a" text-anchor="middle" opacity="0.7">Pennsylvania</text>
+</svg>
